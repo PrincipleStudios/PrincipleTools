@@ -9,7 +9,7 @@
     "lint:fix": "next lint --fix",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "prepare": "cd .. && husky install principle-tools-ui/.husky"
+    "prepare": "cd .. && husky install PrincipleStudios.Tools.Ui/.husky"
   },
   "dependencies": {
     "next": "12.1.0",
