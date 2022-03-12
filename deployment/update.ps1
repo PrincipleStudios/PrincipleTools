@@ -29,7 +29,7 @@ az acr login --name $repository
 
 docker push "$($repository).azurecr.io/$($imageName):$tag"
 
-Pop-Location
-
 az aks get-credentials --resource-group $azureResourceGroup -n $azureAksCluster
 helm upgrade -n $k8sNamespace $chartName chart/principle-tools/ --reuse-values --set-string "image.tag=$tag"
+
+Pop-Location

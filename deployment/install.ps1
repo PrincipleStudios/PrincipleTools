@@ -32,7 +32,7 @@ az acr login --name $repository
 
 docker push "$($repository).azurecr.io/$($imageName):$tag"
 
-Pop-Location
-
 az aks get-credentials --resource-group $azureResourceGroup -n $azureAksCluster
-helm install -n $k8sNamespace $chartName chart/principle-tools/ --values chart/principle-tools/values.yaml --set-string "image.repository=$($repository).azurecr.io/$imageName" --set-string "image.tag=$tag" --set-string "ingress.hosts[0].host=$domain"
+helm install -n $k8sNamespace $chartName --create-namespace chart/principle-tools/ --values chart/principle-tools/values.yaml --set-string "image.repository=$($repository).azurecr.io/$imageName" --set-string "image.tag=$tag" --set-string "ingress.hosts[0].host=$domain"
+
+Pop-Location
