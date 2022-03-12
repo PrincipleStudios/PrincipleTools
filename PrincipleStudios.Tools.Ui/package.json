@@ -9,6 +9,7 @@
     "lint:fix": "next lint --fix",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
+    "test": "jest --watch",
     "prepare": "cd .. && husky install PrincipleStudios.Tools.Ui/.husky"
   },
   "dependencies": {
@@ -28,6 +29,8 @@
     "@storybook/manager-webpack5": "^6.4.19",
     "@storybook/react": "^6.4.19",
     "@storybook/testing-library": "^0.0.9",
+    "@testing-library/jest-dom": "^5.16.2",
+    "@testing-library/react": "^12.1.4",
     "@types/node": "^17.0.21",
     "@types/react": "^17.0.40",
     "@typescript-eslint/eslint-plugin": "^5.14.0",
@@ -38,6 +41,7 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
     "husky": "^7.0.0",
+    "jest": "^27.5.1",
     "lint-staged": "^12.3.5",
     "postcss": "^8.4.8",
     "postcss-import": "^14.0.2",

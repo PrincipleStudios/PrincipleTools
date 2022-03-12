@@ -4,5 +4,6 @@ module.exports = {
     "plugin:@typescript-eslint/recommended"],
     "rules": {
       "prefer-const": "error"
-    }
+    },
+    ignorePatterns: ['/*.js*'],
 };

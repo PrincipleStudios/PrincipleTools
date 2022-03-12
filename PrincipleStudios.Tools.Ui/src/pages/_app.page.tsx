@@ -2,7 +2,7 @@ import Head from 'next/head';
 import { AppProps } from 'next/app';
 import './_app.styles.css';
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps }: Pick<AppProps, 'Component' | 'pageProps'>) {
 	return (
 		<>
 			<Head>
