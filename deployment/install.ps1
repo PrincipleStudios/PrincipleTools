@@ -16,6 +16,8 @@ param (
     $k8sNamespace = 'principle-tools',
     [String]
     $chartName = 'principle-tools',
+    [String]
+    $sslClusterIssuer = 'principle-tools-issuer',
 
     [String]
     $domain = 'principle.tools'
@@ -33,6 +35,10 @@ az acr login --name $repository
 docker push "$($repository).azurecr.io/$($imageName):$tag"
 
 az aks get-credentials --resource-group $azureResourceGroup -n $azureAksCluster
-helm install -n $k8sNamespace $chartName --create-namespace chart/principle-tools/ --values chart/principle-tools/values.yaml --set-string "image.repository=$($repository).azurecr.io/$imageName" --set-string "image.tag=$tag" --set-string "ingress.hosts[0].host=$domain"
+helm install -n $k8sNamespace $chartName --create-namespace chart/principle-tools/ --values chart/principle-tools/values.yaml `
+    --set-string "image.repository=$($repository).azurecr.io/$imageName" `
+    --set-string "image.tag=$tag" `
+    --set-string "ingress.annotations.cert-manager\.io/cluster-issuer=$sslClusterIssuer" `
+    --set-string "ingress.hosts[0].host=$domain"
 
 Pop-Location
