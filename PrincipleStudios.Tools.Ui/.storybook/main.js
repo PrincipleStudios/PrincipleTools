@@ -23,14 +23,20 @@ module.exports = {
     builder: 'webpack5',
   },
   webpackFinal: (config) => {
-    /**
-     * Add support for alias-imports
-     * @see https://github.com/storybookjs/storybook/issues/11989#issuecomment-715524391
-     */
-    config.resolve.alias = {
-      ...config.resolve?.alias,
-      '@': [path.resolve(__dirname, '../src/'), path.resolve(__dirname, '../')],
-    };
+
+    // const fileLoaderRule = config.module.rules.find(
+    //   (rule) => rule.test && rule.test.test('.svg'),
+    // );
+    // fileLoaderRule.exclude = /\.svg$/;
+    // config.module.rules.push({
+    //   test: /\.svg$/,
+    //   loader: require.resolve('@svgr/webpack'),
+    // });
+
+    config.resolve.modules = [
+      ...(config.resolve.modules || []),
+      path.resolve(__dirname, ".."),
+    ];
 
     /**
      * Fixes font import with /
