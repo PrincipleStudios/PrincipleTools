@@ -112,6 +112,7 @@ export const mdxComponents: import('mdx/types').MDXComponents = {
 			{pipeJsx(<>{children}</>, recurse(infoFontTemplate))}
 		</blockquote>
 	),
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	img: ({ src, alt, placeholder, ...props }) => (src ? <img src={src} alt={alt} {...props} /> : <></>),
 	strong: ({ children, ...props }) => (
 		<span className="font-bold" {...props}>
