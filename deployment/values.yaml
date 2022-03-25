@@ -1,0 +1,8 @@
+image:
+  repository: principlestudios.azurecr.io/principle-tools
+ingress:
+  annotations:
+    cert-manager.io/cluster-issuer: principle-tools-issuer
+  enabled: true
+  tls:
+  - secretName: principle-tools-tls
