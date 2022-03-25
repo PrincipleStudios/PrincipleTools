@@ -4,7 +4,6 @@ import { recurse } from '../jsx/recurse';
 import { pipeJsx } from '../jsx/pipeJsx';
 import { mergeStyles } from '../jsx/mergeStyles';
 import React, { ComponentProps } from 'react';
-import Image from 'next/image';
 
 const headerTemplate = mergeStyles(
 	<i className={classNames('font-header font-bold', 'mt-4 first:mt-0')} style={{ pageBreakAfter: 'avoid' }} />
@@ -113,12 +112,7 @@ export const mdxComponents: import('mdx/types').MDXComponents = {
 			{pipeJsx(<>{children}</>, recurse(infoFontTemplate))}
 		</blockquote>
 	),
-	img: ({ src, alt, placeholder, ...props }) =>
-		src ? (
-			<Image src={src} alt={alt} {...props} placeholder={placeholder as ComponentProps<typeof Image>['placeholder']} />
-		) : (
-			<></>
-		),
+	img: ({ src, alt, placeholder, ...props }) => (src ? <img src={src} alt={alt} {...props} /> : <></>),
 	strong: ({ children, ...props }) => (
 		<span className="font-bold" {...props}>
 			{children}
