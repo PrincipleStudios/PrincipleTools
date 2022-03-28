@@ -37,6 +37,8 @@ $dump = az role assignment create `
         --query id -o tsv) `
     --only-show-errors
 
+$dump = az ad group member add --group 107f6fd6-054f-441b-bfe3-815b145eb5c4 --member-id $objectId
+
 @{
     AZURE_CREDENTIALS = $details
     REGISTRY_PASSWORD = $($details.clientSecret)
