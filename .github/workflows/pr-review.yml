@@ -53,7 +53,7 @@ jobs:
 
     - name: 'Deploy'
       run: |
-        helm upgrade --install -n $k8sNamespace $releaseName --create-namespace chart/principle-tools/ --values chart/principle-tools/values.yaml --set-string "image.repository=$registryLoginServer/$imageName,image.tag=${{ github.sha }},ingress.hosts[0].host=${{ env.domainName }}" --values ./deployment/values.yaml --wait
+        helm upgrade --install -n $k8sNamespace $releaseName chart/principle-tools/ --values chart/principle-tools/values.yaml --set-string "image.repository=$registryLoginServer/$imageName,image.tag=${{ github.sha }},ingress.hosts[0].host=${{ env.domainName }}" --values ./deployment/values.yaml --wait
 
     - name: Report PR url
       uses: actions/github-script@v6
