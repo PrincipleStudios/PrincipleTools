@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { recurse } from '../jsx/recurse';
 import { pipeJsx } from '../jsx/pipeJsx';
 import { mergeStyles } from '../jsx/mergeStyles';
-import React, { ComponentProps } from 'react';
+import React from 'react';
 
 const headerTemplate = mergeStyles(
 	<i className={classNames('font-header font-bold', 'mt-4 first:mt-0')} style={{ pageBreakAfter: 'avoid' }} />
