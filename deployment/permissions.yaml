@@ -1,20 +1,24 @@
-kind: ClusterRole
+kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: ci-user-full-access
+  namespace: principle-tools
 rules:
 - apiGroups: ["*"]
   resources: ["*"]
   verbs: ["*"]
 ---
-kind: ClusterRoleBinding
+kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: ci-user-access
+  namespace: principle-tools
 roleRef:
   apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
+  kind: Role
   name: ci-user-full-access
 subjects:
-- kind: Group
-  name: 107f6fd6-054f-441b-bfe3-815b145eb5c4
+# - kind: Group
+#   name: 107f6fd6-054f-441b-bfe3-815b145eb5c4
+- kind: User
+  name: 89ba5cbf-9004-4595-8e09-ee96e246354f
