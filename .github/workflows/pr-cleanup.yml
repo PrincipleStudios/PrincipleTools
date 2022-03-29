@@ -4,11 +4,11 @@ on:
     types: [closed]
 
 env:
-  azClusterName: TinyKubed
-  azClusterResourceGroup: DeKreyDotNet
+  azClusterName: PrincipleToolsCluster
+  azClusterResourceGroup: PrincipleK8s
 
-  registryLoginServer: 'dekreydotnet.azurecr.io'
-  imageName: 'dekreydotnet'
+  registryLoginServer: 'principlestudios.azurecr.io'
+  imageName: 'principle-tools'
   k8sNamespace: 'principle-tools'
   releaseName: 'pr-${{ github.event.pull_request.number }}'
 
