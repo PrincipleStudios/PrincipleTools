@@ -3,3 +3,5 @@ ingress:
   - host: principle.tools
     paths:
     - path: /
+  tls:
+  - secretName: principle-tools-tls
