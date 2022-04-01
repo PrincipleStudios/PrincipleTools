@@ -53,8 +53,7 @@ jobs:
 
     - name: 'Deploy'
       run: |
-        helm upgrade --install -n $k8sNamespace $releaseName chart/principle-tools/ \
-          --values chart/principle-tools/values.yaml \
+        helm upgrade --install -n $k8sNamespace $releaseName --repo https://principlestudios.github.io/helm-charts single-container \
           --set-string "image.repository=$registryLoginServer/$imageName" \
           --set-string "image.tag=${{ github.sha }}" \
           --set-string "ingress.hosts[0].host=${{ env.domainName }}" \
