@@ -4,4 +4,4 @@ ingress:
     paths:
     - path: /
   tls:
-  - secretName: principle-tools-tls
+    secretName: principle-tools-tls

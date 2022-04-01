@@ -54,4 +54,4 @@ jobs:
 
     - name: 'Deploy'
       run: |
-        helm upgrade --install -n $k8sNamespace $releaseName --create-namespace chart/principle-tools/ --values chart/principle-tools/values.yaml --set-string "image.repository=$registryLoginServer/$imageName,image.tag=${{ github.sha }}" --values ./deployment/values.yaml --values ./deployment/values.prod.yaml
+        helm upgrade --install -n $k8sNamespace $releaseName --create-namespace --repo https://principlestudios.github.io/helm-charts single-container --set-string "image.repository=$registryLoginServer/$imageName,image.tag=${{ github.sha }}" --values ./deployment/values.yaml --values ./deployment/values.prod.yaml
