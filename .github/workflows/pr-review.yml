@@ -57,7 +57,7 @@ jobs:
           --set-string "image.repository=$registryLoginServer/$imageName" \
           --set-string "image.tag=${{ github.sha }}" \
           --set-string "ingress.hosts[0].host=${{ env.domainName }}" \
-          --set-string "ingress.tls[0].secretName=principle-tools-tls-pr-${{ github.event.pull_request.number }}" \
+          --set-string "ingress.tls.secretName=principle-tools-tls-pr-${{ github.event.pull_request.number }}" \
           --values ./deployment/values.yaml --wait
 
     - name: Report PR url
