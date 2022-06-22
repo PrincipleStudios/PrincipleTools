@@ -32,3 +32,13 @@ Currently, the C# server does not have any functionality required for local deve
     ```sh
     docker build .
     ```
+
+## Deployments
+
+Deployments are entirely handled via GitHub actions.
+- When a PR is opened or updated, a preview site will automatically be set up.
+  This preview will contain all update both in the PR and in main due to how
+  GitHub runs the actions.
+- When a PR is completed, the preview site will automatically be torn down.
+- When a commit is pushed to main, GitHub actions will build and deploy the
+  branch.
