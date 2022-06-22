@@ -1,0 +1,16 @@
+{
+    "typescript.tsdk": "PrincipleStudios.Tools.UI/node_modules/typescript/lib",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    },
+    "files.eol": "\n",
+    "[typescriptreact]": {
+        "editor.insertSpaces": false
+    },
+    "[typescript]": {
+        "editor.insertSpaces": false
+    },
+    "[javascript]": {
+        "editor.insertSpaces": false
+    }
+}
