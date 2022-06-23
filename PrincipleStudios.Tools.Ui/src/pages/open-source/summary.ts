@@ -19,13 +19,10 @@ export async function getAllPackages(): Promise<OpenSourcePackageSummary[]> {
 async function summarize(path: string): Promise<OpenSourcePackageSummary> {
 	const absolutePath = join(osEntriesFsRoot, path);
 	const fileContent = readFileSync(absolutePath).toString();
-	console.log(fileContent);
 	const packageInfo = JSON.parse(fileContent) as Record<
 		'packageUrl' | 'projectUrl' | 'badge' | 'title' | 'language',
 		string
 	>;
-
-	console.log(packageInfo);
 
 	return {
 		title: packageInfo.title,
