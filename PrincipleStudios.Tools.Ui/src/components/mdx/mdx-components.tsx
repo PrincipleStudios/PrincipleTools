@@ -4,57 +4,19 @@ import { recurse } from '../jsx/recurse';
 import { pipeJsx } from '../jsx/pipeJsx';
 import { mergeStyles } from '../jsx/mergeStyles';
 import React from 'react';
-
-const headerTemplate = mergeStyles(
-	<i className={classNames('font-header font-bold', 'mt-4 first:mt-0')} style={{ pageBreakAfter: 'avoid' }} />
-);
+import { Headings } from '../headings';
 
 const rowTemplate = mergeStyles(<tr className="to-white border-b-2 border-white font-info" />);
 const infoFontTemplate = mergeStyles(<i className="font-info" />);
 
 export const mdxComponents: import('mdx/types').MDXComponents = {
-	h1: ({ children, className, ...props }) =>
-		pipeJsx(
-			<h2 className={classNames(className, 'text-2xl')} {...props}>
-				{children}
-			</h2>,
-			headerTemplate
-		),
-	h2: ({ children, className, ...props }) =>
-		pipeJsx(
-			<h3 className={classNames(className, 'text-xl')} {...props}>
-				{children}
-			</h3>,
-			headerTemplate
-		),
-	h3: ({ children, className, ...props }) =>
-		pipeJsx(
-			<h4 className={classNames(className, 'text-lg')} {...props}>
-				{children}
-			</h4>,
-			headerTemplate
-		),
-	h4: ({ children, className, ...props }) =>
-		pipeJsx(
-			<h5 className={classNames(className, 'text-base')} {...props}>
-				{children}
-			</h5>,
-			headerTemplate
-		),
-	h5: ({ children, className, ...props }) =>
-		pipeJsx(
-			<h6 className={classNames(className, 'text-sm')} {...props}>
-				{children}
-			</h6>,
-			headerTemplate
-		),
-	h6: ({ children, className, ...props }) =>
-		pipeJsx(
-			<h6 className={classNames(className, 'text-xs')} {...props}>
-				{children}
-			</h6>,
-			headerTemplate
-		),
+	// intentional mismatch so we can use `#` to indicate an h2 because mdx imports will add an h1
+	h1: Headings.h2,
+	h2: Headings.h3,
+	h3: Headings.h4,
+	h4: Headings.h5,
+	h5: Headings.h6,
+	h6: Headings.h7,
 	p: ({ children, className, ...props }) => (
 		<p className={classNames(className)} {...props}>
 			{children}

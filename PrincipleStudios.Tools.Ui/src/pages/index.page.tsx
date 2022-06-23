@@ -1,5 +1,5 @@
-import classNames from 'classnames';
 import { GetStaticProps } from 'next';
+import { Headings } from 'src/components/headings';
 import Layout from 'src/components/layouts/article-layout';
 import { getAllPackages, OpenSourcePackageSummary } from 'src/pages/open-source/summary';
 import { OpenSourcePackages } from './index/components/open-source-packages';
@@ -11,7 +11,8 @@ type IndexProps = {
 const IndexPage = ({ openSourcePackages }: IndexProps) => {
 	return (
 		<Layout>
-			<h1 className={classNames('font-header font-bold', 'mt-4 first:mt-0', 'text-3xl')}>Open Source Packages</h1>
+			<Headings.h1>Principle Studios Tools</Headings.h1>
+			<p>A set of resources by and for Principle Studios team members</p>
 			<OpenSourcePackages packages={openSourcePackages} />
 		</Layout>
 	);
