@@ -1,8 +1,8 @@
 import { readFileSync } from 'fs';
 import { join } from 'path';
-import { globAsPromise } from '../../utils/globAsPromise';
+import { globAsPromise } from '../utils/globAsPromise';
 
-const osEntriesFsRoot = join(process.cwd(), 'src/pages/open-source');
+const osEntriesFsRoot = join(process.cwd(), 'src/open-source');
 
 export type OpenSourcePackageSummary = {
 	title: string;

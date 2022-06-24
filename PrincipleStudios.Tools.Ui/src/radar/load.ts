@@ -5,25 +5,9 @@ import { remarkMdxImages } from 'remark-mdx-images';
 import remarkUnwrapImages from 'remark-unwrap-images';
 import rehypeHighlight from 'rehype-highlight';
 import { globAsPromise } from 'src/utils/globAsPromise';
+import { RadarBlip, RadarBlipSummary, radarQuadrants, radarRings } from './types';
 
-export const radarRings = ['hold', 'assess', 'trial', 'adopt'] as const;
-export type RadarRing = typeof radarRings[number];
-
-export const radarQuadrants = ['tools', 'techniques', 'languages-and-frameworks', 'platforms'] as const;
-export type RadarQuadrant = typeof radarQuadrants[number];
-
-export type RadarBlip = {
-	slug: string;
-	code: string;
-	frontmatter: {
-		title: string;
-		ring: RadarRing;
-		quadrant: RadarQuadrant;
-	};
-};
-export type RadarBlipSummary = Omit<RadarBlip, 'code'>;
-
-const radarDataFsRoot = path.join(process.cwd(), 'src/pages/radar/data');
+const radarDataFsRoot = path.join(process.cwd(), 'src/radar/data');
 const publicBundleFsRoot = path.join(process.cwd(), 'public/radar/blips');
 const publicBundlePath = '/radar/blips/';
 

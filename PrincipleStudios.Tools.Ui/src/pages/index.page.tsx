@@ -1,10 +1,10 @@
 import { GetStaticProps } from 'next';
 import { Headings } from 'src/components/headings';
 import Layout from 'src/components/layouts/article-layout';
-import { getAllPackages, OpenSourcePackageSummary } from 'src/pages/open-source/summary';
-import { OpenSourcePackages } from './index/components/open-source-packages';
-import { getAllRadarBlips, RadarBlipSummary } from './radar/load';
-import { Radar } from './radar/radar';
+import { getAllPackages, OpenSourcePackageSummary } from 'src/open-source/summary';
+import { OpenSourcePackages } from 'src/page-components/index/components/open-source-packages';
+import { RadarBlipSummary, Quadrant } from 'src/radar';
+import { getAllRadarBlips } from '../radar/load';
 
 type IndexProps = {
 	openSourcePackages: OpenSourcePackageSummary[];
@@ -19,7 +19,14 @@ const IndexPage = ({ openSourcePackages, blips }: IndexProps) => {
 
 			<OpenSourcePackages packages={openSourcePackages} />
 
-			<Radar blips={blips} />
+			<div>
+				<Quadrant blips={blips} quadrant="techniques" className="w-128 h-128 inline-block" />
+				<Quadrant blips={blips} quadrant="tools" className="w-128 h-128 inline-block" />
+			</div>
+			<div>
+				<Quadrant blips={blips} quadrant="platforms" className="w-128 h-128 inline-block" />
+				<Quadrant blips={blips} quadrant="languages-and-frameworks" className="w-128 h-128 inline-block" />
+			</div>
 		</Layout>
 	);
 };

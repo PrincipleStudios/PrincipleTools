@@ -1,11 +1,11 @@
 import { GetStaticPathsResult, GetStaticProps, GetStaticPropsResult } from 'next';
+import { getMDXComponent } from 'mdx-bundler/client';
+import { useMDXComponents } from '@mdx-js/react';
 import { useMemo } from 'react';
 import { Headings } from 'src/components/headings';
 import Layout from 'src/components/layouts/article-layout';
-import { getAllRadarBlips, getBlipBySlug, RadarBlip } from '../load';
-
-import { getMDXComponent } from 'mdx-bundler/client';
-import { useMDXComponents } from '@mdx-js/react';
+import { getAllRadarBlips, getBlipBySlug } from '../../../radar/load';
+import { RadarBlip } from '../../../radar/types';
 
 type BlipProps = {
 	blip: RadarBlip;

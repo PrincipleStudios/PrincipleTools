@@ -1,7 +1,7 @@
 import { groupBy } from 'lodash/fp';
 import { Fragment } from 'react';
 import { Headings } from 'src/components/headings';
-import { OpenSourcePackageSummary } from 'src/pages/open-source/summary';
+import { OpenSourcePackageSummary } from 'src/open-source/summary';
 
 export function OpenSourcePackages({ packages: allPackages }: { packages: OpenSourcePackageSummary[] }) {
 	const byLanguage = Object.entries(groupBy((pkg) => pkg.language, allPackages));
