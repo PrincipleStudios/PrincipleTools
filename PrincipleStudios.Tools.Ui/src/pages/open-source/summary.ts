@@ -1,6 +1,6 @@
 import { readFileSync } from 'fs';
-import glob from 'glob';
 import { join } from 'path';
+import { globAsPromise } from '../../utils/globAsPromise';
 
 const osEntriesFsRoot = join(process.cwd(), 'src/pages/open-source');
 
@@ -30,16 +30,4 @@ async function summarize(path: string): Promise<OpenSourcePackageSummary> {
 		url: packageInfo.packageUrl,
 		badgeUrl: packageInfo.badge,
 	};
-}
-
-function globAsPromise(pattern: string, options: glob.IOptions) {
-	return new Promise<string[]>((resolve, reject) =>
-		glob(pattern, options, function (err, matches) {
-			if (err) {
-				reject(err);
-			} else {
-				resolve(matches);
-			}
-		})
-	);
 }

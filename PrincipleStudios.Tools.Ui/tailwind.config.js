@@ -9,6 +9,10 @@ const colors = {
 	},
 	blue: defaultColors.blue,
 	red: defaultColors.red,
+	gray: defaultColors.gray,
+	emerald: defaultColors.emerald,
+	amber: defaultColors.amber,
+	violet: defaultColors.violet,
 };
 
 /** @type {import('@types/tailwindcss/tailwind-config.d').TailwindConfig} */
