@@ -1,0 +1,7 @@
+{
+    "language": "C#",
+    "packageUrl": "https://www.nuget.org/packages/PrincipleStudios.OpenApiCodegen.Client/",
+    "projectUrl": "https://github.com/PrincipleStudios/principle-studios-openapi-generators/tree/main/generators/dotnetstandard-client",
+    "badge": "https://img.shields.io/nuget/v/PrincipleStudios.OpenApiCodegen.Client",
+    "title": "OpenAPI Codegen for .NET Core Client Interfaces"
+}

@@ -3,5 +3,5 @@
     "printWidth": 120,
     "bracketSameLine": true,
     "singleQuote": true,
-    "endOfLine": "auto",
+    "endOfLine": "auto"
 }

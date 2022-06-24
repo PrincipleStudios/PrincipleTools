@@ -1,0 +1,7 @@
+{
+    "language": "TypeScript",
+    "packageUrl": "https://www.npmjs.com/package/@principlestudios/openapi-codegen-typescript",
+    "projectUrl": "https://github.com/PrincipleStudios/principle-studios-openapi-generators/tree/main/generators/typescript/PrincipleStudios.OpenApiCodegen.Client.TypeScript",
+    "badge": "https://img.shields.io/npm/v/@principlestudios/openapi-codegen-typescript",
+    "title": "OpenAPI Codegen for a TypeScript-friendly Open API clients"
+}
