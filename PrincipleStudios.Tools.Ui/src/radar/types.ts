@@ -5,6 +5,7 @@ export const radarQuadrants = ['tools', 'techniques', 'languages-and-frameworks'
 export type RadarQuadrant = typeof radarQuadrants[number];
 
 export type RadarBlip = {
+	index: number;
 	slug: string;
 	code: string;
 	frontmatter: {

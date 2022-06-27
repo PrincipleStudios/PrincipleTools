@@ -1,10 +1,10 @@
 import { RadarBlipSummary, RadarQuadrant } from '../types';
 import React from 'react';
 import classNames from 'classnames';
-import { quadrantMapping } from './radarPositioning';
+import { quadrantInfo } from '../quadrant-info';
 import { getBlipPlacement } from './getBlipPlacement';
 import { radarRelativeSize } from './constants';
-import { Blip } from './components/blip';
+import { PositionedBlip } from './components/PositionedBlip';
 import { Rings } from './components/rings';
 import { SvgBorderedBox } from 'src/components/svg-bordered-box';
 
@@ -17,11 +17,12 @@ export function Quadrant({
 	quadrant: RadarQuadrant;
 	className?: string;
 }) {
-	const [x, y] = quadrantMapping[quadrant].direction;
+	const [x, y] = quadrantInfo[quadrant].direction;
 	const results = getBlipPlacement(blips);
 
 	const left = -radarRelativeSize * Math.max(0, x);
 	const top = -radarRelativeSize * Math.max(0, y);
+
 	return (
 		<SvgBorderedBox
 			className={classNames(className ?? 'w-128 h-128')}
@@ -30,7 +31,7 @@ export function Quadrant({
 			<g transform={`translate(${-left} ${-top})`}>
 				<Rings />
 				{results.map((blip) => (
-					<Blip key={blip.slug} {...blip} />
+					<PositionedBlip key={blip.slug} {...blip} />
 				))}
 			</g>
 		</SvgBorderedBox>

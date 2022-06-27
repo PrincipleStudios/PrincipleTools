@@ -13,14 +13,28 @@ const publicBundlePath = '/radar/blips/';
 
 const suffixes = ['/index.md', '/index.mdx', '.md', '.mdx'];
 
+let allBlipFiles: undefined | string[];
+
 async function getAllBlipFiles() {
-	const matchingFiles = (
-		await Promise.all([
-			globAsPromise('**/*.md', { cwd: radarDataFsRoot }),
-			globAsPromise('**/*.mdx', { cwd: radarDataFsRoot }),
-		])
-	).flat();
-	return matchingFiles;
+	const matchingFiles =
+		allBlipFiles ??
+		(
+			await Promise.all([
+				globAsPromise('**/*.md', { cwd: radarDataFsRoot }),
+				globAsPromise('**/*.mdx', { cwd: radarDataFsRoot }),
+			])
+		)
+			.flat()
+			.sort();
+	allBlipFiles = matchingFiles;
+	return allBlipFiles;
+}
+
+async function indexFromFile(relativePath: string) {
+	const all = await getAllBlipFiles();
+	const index = all.indexOf(relativePath);
+	console.log({ all, relativePath, index });
+	return index + 1;
 }
 
 function slugToFile(slug: string) {
@@ -82,6 +96,7 @@ async function getBlipByFilePath(relativePath: string): Promise<RadarBlip> {
 	}
 
 	return {
+		index: await indexFromFile(relativePath),
 		slug,
 		code,
 		frontmatter: {
@@ -93,7 +108,7 @@ async function getBlipByFilePath(relativePath: string): Promise<RadarBlip> {
 }
 
 export async function getAllRadarBlips() {
-	const posts = (await Promise.all((await getAllBlipFiles()).map((slug) => getBlipByFilePath(slug))))
+	const posts = (await Promise.all((await getAllBlipFiles()).map((relativePath) => getBlipByFilePath(relativePath))))
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		.map(({ code, ...rest }): RadarBlipSummary => rest);
 

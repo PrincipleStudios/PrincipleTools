@@ -1,7 +1,8 @@
 import { forceCenter, forceCollide, forceSimulation } from 'd3-force';
-import { clamp, groupBy } from 'lodash/fp';
+import { clamp, groupBy, zip } from 'lodash/fp';
+import { buffer, quadrantInfo } from '../quadrant-info';
 import { PositionedRadarBlip, RadarBlipSummary, RadarQuadrant, RadarRing } from '../types';
-import { buffer, quadrantMapping, ringMapping } from './radarPositioning';
+import { ringMapping } from './radarPositioning';
 
 export function getBlipPlacement(blips: RadarBlipSummary[]): PositionedRadarBlip[] {
 	const quadrants = Object.entries(
@@ -11,15 +12,15 @@ export function getBlipPlacement(blips: RadarBlipSummary[]): PositionedRadarBlip
 	const results = quadrants
 		.map(([quadrantRing, blipsInQuadrant]) => {
 			const [quadrant, ring] = quadrantRing.split(' ') as [RadarQuadrant, RadarRing];
-			const { range: quadrantRange } = quadrantMapping[quadrant];
+			const { range: quadrantRange } = quadrantInfo[quadrant];
 			const { range: ringRange } = ringMapping[ring];
 			const quadrantValue = (quadrantRange[0] + quadrantRange[1]) / 2;
 			const ringValue = (ringRange[0] + ringRange[1]) / 2;
 
-			const blipNodes = blipsInQuadrant.map((blip) => {
+			const blipNodes = blipsInQuadrant.map(() => {
 				const x = quadrantValue;
 				const y = ringValue;
-				return { x, y, ...blip };
+				return { x, y };
 			});
 			const xBounds = clamp(quadrantRange[0], quadrantRange[1]);
 			const yBounds = clamp(ringRange[0] + buffer, ringRange[1] - buffer);
@@ -35,15 +36,15 @@ export function getBlipPlacement(blips: RadarBlipSummary[]): PositionedRadarBlip
 				.force('center', forceCenter(quadrantValue, ringValue))
 				.tick(100);
 
-			for (const node of blipNodes) {
-				node.x = xBounds(node.x);
-				node.y = yBounds(node.y);
+			return zip(blipNodes, blipsInQuadrant).map(([node, blip]) => {
+				if (!node) throw new Error('Somehow had a mismatch of blips');
 				const { x: radians, y: radius } = node;
-				node.x = Math.cos(radians) * radius;
-				node.y = -Math.sin(radians) * radius;
-			}
-
-			return blipNodes;
+				return {
+					x: Math.cos(radians) * radius,
+					y: -Math.sin(radians) * radius,
+					...blip,
+				} as PositionedRadarBlip;
+			});
 		})
 		.flat();
 

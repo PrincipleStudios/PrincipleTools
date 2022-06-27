@@ -1,14 +1,21 @@
-import { PositionedRadarBlip } from '../../types';
+import { RadarQuadrant } from '../../types';
 import React from 'react';
-import { quadrantMapping } from '../radarPositioning';
-import { radarRelativeSize } from '../constants';
+import { buffer, quadrantInfo } from '../../quadrant-info';
 
-export function Blip({ x, y, frontmatter: { title, quadrant } }: PositionedRadarBlip) {
+export function Blip({ quadrant, index }: { quadrant: RadarQuadrant; index?: number }) {
 	return (
-		<g
-			transform={`translate(${x * radarRelativeSize} ${y * radarRelativeSize}) scale(${radarRelativeSize})`}
-			data-title={title}>
-			{quadrantMapping[quadrant].template}
-		</g>
+		<>
+			{quadrantInfo[quadrant].template}
+			{index !== undefined ? (
+				<text
+					fontSize={buffer / 2}
+					textAnchor="middle"
+					className="fill-white"
+					dominantBaseline="middle"
+					dy={buffer / 15}>
+					{index}
+				</text>
+			) : null}
+		</>
 	);
 }
