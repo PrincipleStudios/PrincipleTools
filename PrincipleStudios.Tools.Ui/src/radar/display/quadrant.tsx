@@ -7,6 +7,7 @@ import { radarRelativeSize } from './constants';
 import { PositionedBlip } from './components/PositionedBlip';
 import { Rings } from './components/rings';
 import { SvgBorderedBox } from 'src/components/svg-bordered-box';
+import { useTooltip } from './components/hover-info/use-tooltip';
 
 export function Quadrant({
 	blips,
@@ -24,6 +25,8 @@ export function Quadrant({
 
 	const left = -radarRelativeSize * Math.max(0, x);
 	const top = -radarRelativeSize * Math.max(0, y);
+
+	const applyTooltip = useTooltip();
 
 	return (
 		<SvgBorderedBox
@@ -43,7 +46,9 @@ export function Quadrant({
 				) : null}
 				<Rings />
 				{results.map((blip) => (
-					<PositionedBlip key={blip.slug} {...blip} />
+					<g key={blip.slug} className="cursor-pointer" {...applyTooltip(<span>{blip.frontmatter.title}</span>)}>
+						<PositionedBlip {...blip} />
+					</g>
 				))}
 			</g>
 		</SvgBorderedBox>
