@@ -3,7 +3,8 @@ import { Headings } from 'src/components/headings';
 import Layout from 'src/components/layouts/article-layout';
 import { getAllPackages, OpenSourcePackageSummary } from 'src/open-source/summary';
 import { OpenSourcePackages } from 'src/page-components/index/components/open-source-packages';
-import { RadarBlipSummary, Quadrant } from 'src/radar';
+import { TechnologyRadar } from 'src/page-components/index/components/tech-radar';
+import { RadarBlipSummary } from 'src/radar';
 import { getAllRadarBlips } from '../radar/load';
 
 type IndexProps = {
@@ -18,15 +19,7 @@ const IndexPage = ({ openSourcePackages, blips }: IndexProps) => {
 			<p>A set of resources by and for Principle Studios team members</p>
 
 			<OpenSourcePackages packages={openSourcePackages} />
-
-			<div>
-				<Quadrant blips={blips} quadrant="techniques" className="w-128 h-128 inline-block" />
-				<Quadrant blips={blips} quadrant="tools" className="w-128 h-128 inline-block" />
-			</div>
-			<div>
-				<Quadrant blips={blips} quadrant="platforms" className="w-128 h-128 inline-block" />
-				<Quadrant blips={blips} quadrant="languages-and-frameworks" className="w-128 h-128 inline-block" />
-			</div>
+			<TechnologyRadar blips={blips} />
 		</Layout>
 	);
 };

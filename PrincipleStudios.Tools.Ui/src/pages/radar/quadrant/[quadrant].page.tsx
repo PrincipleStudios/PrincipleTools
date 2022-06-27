@@ -6,6 +6,7 @@ import { getAllRadarBlips, getBlipBySlug } from 'src/radar/load';
 import { Quadrant, quadrantInfo, RadarBlip, RadarQuadrant, radarQuadrants } from 'src/radar';
 import { headingsByBaseNumber, MdxComponentFromCode } from 'src/components/mdx';
 import { BlipSvg } from 'src/radar/display/components/blip-svg';
+import { RingsLabel } from 'src/radar/display/rings-label';
 
 type QuadrantStaticProps = {
 	quadrant: RadarQuadrant;
@@ -18,13 +19,27 @@ type QuadrantProps = {
 
 export default function RadarQuadrantComponent({ quadrant, blips }: QuadrantProps) {
 	const headings = useMemo(() => headingsByBaseNumber(3), []);
-	const { title, Component } = quadrantInfo[quadrant];
+	const {
+		title,
+		Component,
+		direction: [dirX, dirY],
+	} = quadrantInfo[quadrant];
 	return (
 		<Layout>
 			<div className="lg:relative">
 				<div className="lg:sticky lg:top-24 lg:float-right lg:w-128">
 					<Headings.h1>{title}</Headings.h1>
+					{dirY < 0 ? (
+						<div className="font-bold text-xs">
+							<RingsLabel reverse={dirX > 0} className="align-top w-128 mr-4" />
+						</div>
+					) : null}
 					<Quadrant blips={blips} quadrant={quadrant} className="max-w-full lg:w-128 lg:h-128 inline-block" />
+					{dirY > 0 ? (
+						<div className="font-bold text-xs">
+							<RingsLabel reverse={dirX > 0} className="align-top w-128 mr-4" />
+						</div>
+					) : null}
 					<Component />
 				</div>
 				<div className="lg:w-1/2">

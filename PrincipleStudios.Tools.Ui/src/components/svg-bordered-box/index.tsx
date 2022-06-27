@@ -24,7 +24,7 @@ export function SvgBorderedBox({
 			<g mask={`url(#${id}-mask)`}>
 				<rect className="fill-gray-200" x={0} y={0} width={width} height={height} />
 				{children}
-				<rect className="fill-transparent stroke-black stroke-1" x={0} y={0} width={width} height={height} />
+				<rect fill="none" className="stroke-black stroke-1" x={0} y={0} width={width} height={height} />
 			</g>
 		</svg>
 	);

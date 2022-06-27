@@ -12,10 +12,12 @@ export function Quadrant({
 	blips,
 	quadrant,
 	className,
+	showTitle,
 }: {
 	blips: RadarBlipSummary[];
 	quadrant: RadarQuadrant;
 	className?: string;
+	showTitle?: boolean;
 }) {
 	const [x, y] = quadrantInfo[quadrant].direction;
 	const results = getBlipPlacement(blips);
@@ -29,6 +31,16 @@ export function Quadrant({
 			width={radarRelativeSize}
 			height={radarRelativeSize}>
 			<g transform={`translate(${-left} ${-top})`}>
+				{showTitle ? (
+					<g transform={`translate(${-radarRelativeSize * x * 0.95} ${-radarRelativeSize * y * 0.95})`}>
+						<text
+							className="text-sm font-bold"
+							dominantBaseline={y > 0 ? 'hanging' : 'bottom'}
+							textAnchor={x > 0 ? 'start' : 'end'}>
+							{quadrantInfo[quadrant].title}
+						</text>
+					</g>
+				) : null}
 				<Rings />
 				{results.map((blip) => (
 					<PositionedBlip key={blip.slug} {...blip} />

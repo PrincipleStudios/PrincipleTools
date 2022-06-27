@@ -33,7 +33,6 @@ async function getAllBlipFiles() {
 async function indexFromFile(relativePath: string) {
 	const all = await getAllBlipFiles();
 	const index = all.indexOf(relativePath);
-	console.log({ all, relativePath, index });
 	return index + 1;
 }
 

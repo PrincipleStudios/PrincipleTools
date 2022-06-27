@@ -2,7 +2,7 @@ import { forceCenter, forceCollide, forceSimulation } from 'd3-force';
 import { clamp, groupBy, zip } from 'lodash/fp';
 import { buffer, quadrantInfo } from '../quadrant-info';
 import { PositionedRadarBlip, RadarBlipSummary, RadarQuadrant, RadarRing } from '../types';
-import { ringMapping } from './radarPositioning';
+import { ringInfo } from '../ring-info';
 
 export function getBlipPlacement(blips: RadarBlipSummary[]): PositionedRadarBlip[] {
 	const quadrants = Object.entries(
@@ -13,7 +13,7 @@ export function getBlipPlacement(blips: RadarBlipSummary[]): PositionedRadarBlip
 		.map(([quadrantRing, blipsInQuadrant]) => {
 			const [quadrant, ring] = quadrantRing.split(' ') as [RadarQuadrant, RadarRing];
 			const { range: quadrantRange } = quadrantInfo[quadrant];
-			const { range: ringRange } = ringMapping[ring];
+			const { range: ringRange } = ringInfo[ring];
 			const quadrantValue = (quadrantRange[0] + quadrantRange[1]) / 2;
 			const ringValue = (ringRange[0] + ringRange[1]) / 2;
 
