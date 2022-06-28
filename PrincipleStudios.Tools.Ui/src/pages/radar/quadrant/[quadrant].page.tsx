@@ -83,7 +83,7 @@ export default function RadarQuadrantComponent({ quadrant, blips }: QuadrantProp
 		</Layout>
 	);
 
-	function blipClicked(blipSummary: RadarBlipSummary, ev: React.MouseEvent) {
+	function blipClicked(blipSummary: RadarBlipSummary, ev: React.UIEvent) {
 		ev.preventDefault();
 		ev.stopPropagation();
 
