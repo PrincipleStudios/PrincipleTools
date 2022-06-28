@@ -10,6 +10,7 @@ import { RingsLabel } from 'src/radar/display/rings-label';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import ChevronLeft from '@heroicons/react/solid/ChevronLeftIcon';
+import { ringInfo } from 'src/radar/ring-info';
 
 type QuadrantStaticProps = {
 	quadrant: RadarQuadrant;
@@ -66,6 +67,9 @@ export default function RadarQuadrantComponent({ quadrant, blips }: QuadrantProp
 								<BlipSvg className="inline-block w-8 -m-1 align-bottom" quadrant={quadrant} index={b.index} />{' '}
 								{b.frontmatter.title}
 							</Headings.h2>
+							<p className="my-2">
+								<span className="font-bold">Current Recommendation:</span> {ringInfo[b.frontmatter.ring].title}
+							</p>
 							<MdxComponentFromCode code={b.code} components={headings} />
 						</article>
 					))}
