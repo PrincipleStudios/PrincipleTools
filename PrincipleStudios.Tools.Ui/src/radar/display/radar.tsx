@@ -96,7 +96,7 @@ export function TechnologyRadar({
 		</>
 	);
 
-	function blipClicked(blipSummary: RadarBlipSummary, ev: React.MouseEvent) {
+	function blipClicked(blipSummary: RadarBlipSummary, ev: React.UIEvent) {
 		ev.preventDefault();
 		ev.stopPropagation();
 

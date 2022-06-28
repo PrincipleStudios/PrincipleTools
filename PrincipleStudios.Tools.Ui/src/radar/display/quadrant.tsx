@@ -20,7 +20,7 @@ export function Quadrant({
 	quadrant: RadarQuadrant;
 	className?: string;
 	showTitle?: boolean;
-	onClickBlip?: (slug: RadarBlipSummary, ev: React.MouseEvent) => void;
+	onClickBlip?: (blip: RadarBlipSummary, ev: React.UIEvent) => void;
 }) {
 	const [x, y] = quadrantInfo[quadrant].direction;
 	const results = getBlipPlacement(blips.filter((blip) => blip.frontmatter.quadrant === quadrant));
@@ -53,11 +53,19 @@ export function Quadrant({
 						key={blip.slug}
 						className="cursor-pointer"
 						{...applyTooltip(<span>{blip.frontmatter.title}</span>)}
-						onClick={onClickBlip ? (ev) => onClickBlip(blip, ev) : undefined}>
+						onClick={onClickBlip ? (ev) => onClickBlip(blip, ev) : undefined}
+						onKeyDown={onClickBlip ? (ev) => onKeyDown(blip, ev) : undefined}>
 						<PositionedBlip {...blip} />
 					</g>
 				))}
 			</g>
 		</SvgBorderedBox>
 	);
+
+	function onKeyDown(blip: RadarBlipSummary, ev: React.KeyboardEvent) {
+		console.log(ev.code);
+		if (onClickBlip && (ev.code === 'Space' || ev.code === 'Enter')) {
+			onClickBlip(blip, ev);
+		}
+	}
 }
