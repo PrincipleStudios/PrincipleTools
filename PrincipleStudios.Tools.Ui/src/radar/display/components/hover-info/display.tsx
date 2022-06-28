@@ -35,7 +35,6 @@ function getDocumentOffset(target: Element): { left: number; top: number } {
 		if (!parent) throw new Error('Not supported - please make sure your element is mounted');
 		const bounds = target.getBoundingClientRect();
 		const parentBounds = parent.getBoundingClientRect();
-		console.log(target, target.getBoundingClientRect());
 
 		const parentOffset = getDocumentOffset(parent);
 		return { left: bounds.x - parentBounds.x + parentOffset.left, top: bounds.y - parentBounds.y + parentOffset.top };

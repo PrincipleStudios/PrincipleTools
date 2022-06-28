@@ -14,11 +14,13 @@ export function Quadrant({
 	quadrant,
 	className,
 	showTitle,
+	onClickBlip,
 }: {
 	blips: RadarBlipSummary[];
 	quadrant: RadarQuadrant;
 	className?: string;
 	showTitle?: boolean;
+	onClickBlip?: (slug: RadarBlipSummary, ev: React.MouseEvent) => void;
 }) {
 	const [x, y] = quadrantInfo[quadrant].direction;
 	const results = getBlipPlacement(blips);
@@ -46,7 +48,11 @@ export function Quadrant({
 				) : null}
 				<Rings />
 				{results.map((blip) => (
-					<g key={blip.slug} className="cursor-pointer" {...applyTooltip(<span>{blip.frontmatter.title}</span>)}>
+					<g
+						key={blip.slug}
+						className="cursor-pointer"
+						{...applyTooltip(<span>{blip.frontmatter.title}</span>)}
+						onClick={onClickBlip ? (ev) => onClickBlip(blip, ev) : undefined}>
 						<PositionedBlip {...blip} />
 					</g>
 				))}

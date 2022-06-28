@@ -1,7 +1,11 @@
+/* eslint-disable @next/next/link-passhref */
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { Headings } from 'src/components/headings';
 import { Quadrant, RingsLabel, RadarBlipSummary } from 'src/radar';
 
 export function TechnologyRadar({ blips }: { blips: RadarBlipSummary[] }) {
+	const router = useRouter();
 	return (
 		<>
 			<Headings.h2>Technology Radar</Headings.h2>
@@ -32,17 +36,56 @@ export function TechnologyRadar({ blips }: { blips: RadarBlipSummary[] }) {
 			</p>
 
 			<div>
-				<Quadrant showTitle blips={blips} quadrant="techniques" className="w-128 h-128 mr-4 inline-block" />
-				<Quadrant showTitle blips={blips} quadrant="tools" className="w-128 h-128 inline-block" />
+				<Link href="/radar/quadrant/techniques/">
+					<Quadrant
+						showTitle
+						blips={blips}
+						quadrant="techniques"
+						className="w-128 h-128 mr-4 inline-block"
+						onClickBlip={blipClicked}
+					/>
+				</Link>
+				<a href="/radar/quadrant/tools/">
+					<Quadrant
+						showTitle
+						blips={blips}
+						quadrant="tools"
+						className="w-128 h-128 inline-block"
+						onClickBlip={blipClicked}
+					/>
+				</a>
 			</div>
 			<div className="font-bold text-xs">
 				<RingsLabel reverse className="align-top w-128 mr-4" />
 				<RingsLabel className="align-top w-128" />
 			</div>
 			<div>
-				<Quadrant showTitle blips={blips} quadrant="platforms" className="w-128 h-128 mr-4 inline-block" />
-				<Quadrant showTitle blips={blips} quadrant="languages-and-frameworks" className="w-128 h-128 inline-block" />
+				<Link href="/radar/quadrant/platforms/">
+					<Quadrant
+						showTitle
+						blips={blips}
+						quadrant="platforms"
+						className="w-128 h-128 mr-4 inline-block"
+						onClickBlip={blipClicked}
+					/>
+				</Link>
+				<Link href="/radar/quadrant/languages-and-frameworks/">
+					<Quadrant
+						showTitle
+						blips={blips}
+						quadrant="languages-and-frameworks"
+						className="w-128 h-128 inline-block"
+						onClickBlip={blipClicked}
+					/>
+				</Link>
 			</div>
 		</>
 	);
+
+	function blipClicked(blipSummary: RadarBlipSummary, ev: React.MouseEvent) {
+		ev.preventDefault();
+		ev.stopPropagation();
+
+		router.push(`/radar/quadrant/${blipSummary.frontmatter.quadrant}#${blipSummary.slug}`);
+	}
 }
