@@ -2,8 +2,10 @@ import Head from 'next/head';
 import { AppProps } from 'next/app';
 import './_app.styles.css';
 import { TooltipDisplay } from 'src/radar/display/components/hover-info/display';
+import { PullRequestToast } from 'src/components/pull-request-toast';
 
 function MyApp({ Component, pageProps }: Pick<AppProps, 'Component' | 'pageProps'>) {
+	const prId = Number(process.env.NEXT_PUBLIC_PR_ID);
 	return (
 		<>
 			<Head>
@@ -13,6 +15,7 @@ function MyApp({ Component, pageProps }: Pick<AppProps, 'Component' | 'pageProps
 			</Head>
 			<Component {...pageProps} />
 			<TooltipDisplay />
+			{isNaN(prId) ? null : <PullRequestToast prId={prId} />}
 		</>
 	);
 }
