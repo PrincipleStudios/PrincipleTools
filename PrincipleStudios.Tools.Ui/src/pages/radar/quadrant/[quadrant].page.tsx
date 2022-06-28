@@ -1,12 +1,13 @@
 import { GetStaticPathsResult, GetStaticProps, GetStaticPropsResult } from 'next';
-import { Fragment, useMemo } from 'react';
+import { useMemo } from 'react';
 import { Headings } from 'src/components/headings';
 import Layout from 'src/components/layouts/article-layout';
 import { getAllRadarBlips, getBlipBySlug } from 'src/radar/load';
-import { Quadrant, quadrantInfo, RadarBlip, RadarQuadrant, radarQuadrants } from 'src/radar';
+import { Quadrant, quadrantInfo, RadarBlip, RadarBlipSummary, RadarQuadrant, radarQuadrants } from 'src/radar';
 import { headingsByBaseNumber, MdxComponentFromCode } from 'src/components/mdx';
 import { BlipSvg } from 'src/radar/display/components/blip-svg';
 import { RingsLabel } from 'src/radar/display/rings-label';
+import { useRouter } from 'next/router';
 
 type QuadrantStaticProps = {
 	quadrant: RadarQuadrant;
@@ -18,6 +19,7 @@ type QuadrantProps = {
 };
 
 export default function RadarQuadrantComponent({ quadrant, blips }: QuadrantProps) {
+	const router = useRouter();
 	const headings = useMemo(() => headingsByBaseNumber(3), []);
 	const {
 		title,
@@ -34,7 +36,12 @@ export default function RadarQuadrantComponent({ quadrant, blips }: QuadrantProp
 							<RingsLabel reverse={dirX > 0} className="align-top w-128 mr-4" />
 						</div>
 					) : null}
-					<Quadrant blips={blips} quadrant={quadrant} className="max-w-full lg:w-128 lg:h-128 inline-block" />
+					<Quadrant
+						blips={blips}
+						quadrant={quadrant}
+						className="max-w-full lg:w-128 lg:h-128 inline-block"
+						onClickBlip={blipClicked}
+					/>
 					{dirY > 0 ? (
 						<div className="font-bold text-xs">
 							<RingsLabel reverse={dirX > 0} className="align-top w-128 mr-4" />
@@ -44,19 +51,27 @@ export default function RadarQuadrantComponent({ quadrant, blips }: QuadrantProp
 				</div>
 				<div className="lg:w-1/2">
 					{blips.map((b) => (
-						<Fragment key={b.slug}>
+						<article key={b.slug} className="my-4 relative">
+							<div id={b.slug} className="absolute -top-24" />
 							<Headings.h2>
 								<BlipSvg className="inline-block w-8 -m-1 align-bottom" quadrant={quadrant} index={b.index} />{' '}
 								{b.frontmatter.title}
 							</Headings.h2>
 							<MdxComponentFromCode code={b.code} components={headings} />
-						</Fragment>
+						</article>
 					))}
 				</div>
 				<div className="clear-both" />
 			</div>
 		</Layout>
 	);
+
+	function blipClicked(blipSummary: RadarBlipSummary, ev: React.MouseEvent) {
+		ev.preventDefault();
+		ev.stopPropagation();
+
+		router.push(`#${blipSummary.slug}`);
+	}
 }
 
 export const getStaticProps: GetStaticProps<QuadrantProps, QuadrantStaticProps> = async ({
