@@ -12,6 +12,7 @@ export type RadarBlip = {
 		title: string;
 		ring: RadarRing;
 		quadrant: RadarQuadrant;
+		lastUpdate: string;
 	};
 };
 export type RadarBlipSummary = Omit<RadarBlip, 'code'>;

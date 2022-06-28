@@ -21,7 +21,7 @@ export const headingsByBaseNumber = (n: number) => ({
 export const mdxComponents: import('mdx/types').MDXComponents = {
 	...headingsByBaseNumber(1),
 	p: ({ children, className, ...props }) => (
-		<p className={classNames(className)} {...props}>
+		<p className={classNames(className, 'my-2')} {...props}>
 			{children}
 		</p>
 	),
