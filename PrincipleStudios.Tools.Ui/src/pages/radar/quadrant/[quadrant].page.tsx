@@ -11,6 +11,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import ChevronLeft from '@heroicons/react/solid/ChevronLeftIcon';
 import { ringInfo } from 'src/radar/ring-info';
+import Head from 'next/head';
 
 type QuadrantStaticProps = {
 	quadrant: RadarQuadrant;
@@ -31,9 +32,12 @@ export default function RadarQuadrantComponent({ quadrant, blips }: QuadrantProp
 	} = quadrantInfo[quadrant];
 	return (
 		<Layout>
+			<Head>
+				<title>Principle Studios Technology Radar: {title}</title>
+			</Head>
 			<div className="lg:relative">
 				<div className="lg:sticky lg:top-24 lg:float-right lg:w-128">
-					<Headings.h1 className="my-4">{title}</Headings.h1>
+					<Headings.h1 className="my-4">Technology Radar: {title}</Headings.h1>
 					{dirY < 0 ? (
 						<div className="font-bold text-xs">
 							<RingsLabel reverse={dirX > 0} className="align-top w-128 mr-4" />

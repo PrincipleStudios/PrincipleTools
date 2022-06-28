@@ -1,4 +1,5 @@
 import { GetStaticProps } from 'next';
+import Head from 'next/head';
 import { Headings } from 'src/components/headings';
 import Layout from 'src/components/layouts/article-layout';
 import { getAllPackages, OpenSourcePackageSummary } from 'src/open-source/summary';
@@ -14,6 +15,9 @@ type IndexProps = {
 const IndexPage = ({ openSourcePackages, blips }: IndexProps) => {
 	return (
 		<Layout>
+			<Head>
+				<title>Principle Studios Tools</title>
+			</Head>
 			<Headings.h1>Principle Studios Tools</Headings.h1>
 			<p>A set of resources by and for Principle Studios team members</p>
 
