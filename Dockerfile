@@ -41,6 +41,8 @@ COPY PrincipleStudios.Tools.Ui/ .
 ENV NEXT_TELEMETRY_DISABLED 1
 
 RUN ./node_modules/.bin/jest
+ARG PR_ID
+ENV NEXT_PUBLIC_PR_ID=$PR_ID
 RUN npm run build
 
 FROM base AS final

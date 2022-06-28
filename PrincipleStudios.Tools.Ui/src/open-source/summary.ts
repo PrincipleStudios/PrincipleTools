@@ -1,8 +1,8 @@
 import { readFileSync } from 'fs';
-import glob from 'glob';
 import { join } from 'path';
+import { globAsPromise } from '../utils/globAsPromise';
 
-const osEntriesFsRoot = join(process.cwd(), 'src/pages/open-source');
+const osEntriesFsRoot = join(process.cwd(), 'src/open-source');
 
 export type OpenSourcePackageSummary = {
 	title: string;
@@ -19,13 +19,10 @@ export async function getAllPackages(): Promise<OpenSourcePackageSummary[]> {
 async function summarize(path: string): Promise<OpenSourcePackageSummary> {
 	const absolutePath = join(osEntriesFsRoot, path);
 	const fileContent = readFileSync(absolutePath).toString();
-	console.log(fileContent);
 	const packageInfo = JSON.parse(fileContent) as Record<
 		'packageUrl' | 'projectUrl' | 'badge' | 'title' | 'language',
 		string
 	>;
-
-	console.log(packageInfo);
 
 	return {
 		title: packageInfo.title,
@@ -33,16 +30,4 @@ async function summarize(path: string): Promise<OpenSourcePackageSummary> {
 		url: packageInfo.packageUrl,
 		badgeUrl: packageInfo.badge,
 	};
-}
-
-function globAsPromise(pattern: string, options: glob.IOptions) {
-	return new Promise<string[]>((resolve, reject) =>
-		glob(pattern, options, function (err, matches) {
-			if (err) {
-				reject(err);
-			} else {
-				resolve(matches);
-			}
-		})
-	);
 }

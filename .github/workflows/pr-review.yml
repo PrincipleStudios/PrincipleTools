@@ -30,8 +30,8 @@ jobs:
 
     - name: 'Build and push image'
       run: |
-        docker build . -t $registryLoginServer/$imageName:${{ github.sha }}
-        docker push $registryLoginServer/$imageName:${{ github.sha }}
+        docker build . -t $registryLoginServer/$imageName:pr-${{ github.sha }} --build-arg PR_ID=${{ github.event.pull_request.number }}
+        docker push $registryLoginServer/$imageName:pr-${{ github.sha }}
 
     # Set the target Azure Kubernetes Service (AKS) cluster.
     - uses: azure/login@v1
@@ -55,7 +55,7 @@ jobs:
       run: |
         helm upgrade --install -n $k8sNamespace $releaseName --repo https://principlestudios.github.io/helm-charts single-container \
           --set-string "image.repository=$registryLoginServer/$imageName" \
-          --set-string "image.tag=${{ github.sha }}" \
+          --set-string "image.tag=pr-${{ github.sha }}" \
           --set-string "ingress.hosts[0].host=${{ env.domainName }}" \
           --set-string "ingress.tls.secretName=principle-tools-tls-pr-${{ github.event.pull_request.number }}" \
           --values ./deployment/values.yaml --wait

@@ -9,14 +9,17 @@ import { Headings } from '../headings';
 const rowTemplate = mergeStyles(<tr className="to-white border-b-2 border-white font-info" />);
 const infoFontTemplate = mergeStyles(<i className="font-info" />);
 
+export const headingsByBaseNumber = (n: number) => ({
+	h1: Headings.byNumber(n + 0),
+	h2: Headings.byNumber(n + 1),
+	h3: Headings.byNumber(n + 2),
+	h4: Headings.byNumber(n + 3),
+	h5: Headings.byNumber(n + 4),
+	h6: Headings.byNumber(n + 5),
+});
+
 export const mdxComponents: import('mdx/types').MDXComponents = {
-	// intentional mismatch so we can use `#` to indicate an h2 because mdx imports will add an h1
-	h1: Headings.h2,
-	h2: Headings.h3,
-	h3: Headings.h4,
-	h4: Headings.h5,
-	h5: Headings.h6,
-	h6: Headings.h7,
+	...headingsByBaseNumber(1),
 	p: ({ children, className, ...props }) => (
 		<p className={classNames(className)} {...props}>
 			{children}

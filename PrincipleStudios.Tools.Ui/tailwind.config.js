@@ -1,6 +1,7 @@
 const defaultColors = require('tailwindcss/colors');
 
 const colors = {
+	transparent: defaultColors.transparent,
 	white: {
 		DEFAULT: '#FFFFFF',
 	},
@@ -9,18 +10,24 @@ const colors = {
 	},
 	blue: defaultColors.blue,
 	red: defaultColors.red,
+	gray: defaultColors.gray,
+	emerald: defaultColors.emerald,
+	amber: defaultColors.amber,
+	violet: defaultColors.violet,
 };
 
 /** @type {import('@types/tailwindcss/tailwind-config.d').TailwindConfig} */
 const tailwindConfig = {
   content: [
-    './src/components/**/*.{ts,tsx,js,jsx}',
-    './src/pages/**/*.{ts,tsx,js,jsx}'
+    './src/**/*.{ts,tsx,js,jsx}'
   ],
 	theme: {
 		extend: {
 			width: {
 				content: '800px',
+			},
+			spacing: {
+				'128': '32rem',
 			},
 		},
 		colors,
