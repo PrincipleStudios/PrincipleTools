@@ -3,8 +3,7 @@ import { Headings } from 'src/components/headings';
 import Layout from 'src/components/layouts/article-layout';
 import { getAllPackages, OpenSourcePackageSummary } from 'src/open-source/summary';
 import { OpenSourcePackages } from 'src/page-components/index/components/open-source-packages';
-import { TechnologyRadar } from 'src/page-components/index/components/tech-radar';
-import { RadarBlipSummary } from 'src/radar';
+import { RadarBlipSummary, TechnologyRadar } from 'src/radar';
 import { getAllRadarBlips } from '../radar/load';
 
 type IndexProps = {

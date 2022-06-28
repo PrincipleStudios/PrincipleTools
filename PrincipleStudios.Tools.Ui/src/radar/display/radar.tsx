@@ -4,11 +4,17 @@ import { useRouter } from 'next/router';
 import { Headings } from 'src/components/headings';
 import { Quadrant, RingsLabel, RadarBlipSummary } from 'src/radar';
 
-export function TechnologyRadar({ blips }: { blips: RadarBlipSummary[] }) {
+export function TechnologyRadar({
+	blips,
+	Heading = Headings.h2,
+}: {
+	blips: RadarBlipSummary[];
+	Heading?: typeof Headings['h2'];
+}) {
 	const router = useRouter();
 	return (
 		<>
-			<Headings.h2>Technology Radar</Headings.h2>
+			<Heading>Technology Radar</Heading>
 			<p className="max-w-xl my-2">
 				This is a summary of the most important technologies that, as a consulting company, are on our
 				&quot;radar&quot;. Each technology is categorized into one of four quadrants (Techniques, Tools, Platforms, and
@@ -37,23 +43,27 @@ export function TechnologyRadar({ blips }: { blips: RadarBlipSummary[] }) {
 
 			<div>
 				<Link href="/radar/quadrant/techniques/">
-					<Quadrant
-						showTitle
-						blips={blips}
-						quadrant="techniques"
-						className="w-128 h-128 mr-4 inline-block"
-						onClickBlip={blipClicked}
-					/>
+					<a>
+						<Quadrant
+							showTitle
+							blips={blips}
+							quadrant="techniques"
+							className="w-128 h-128 mr-4 inline-block"
+							onClickBlip={blipClicked}
+						/>
+					</a>
 				</Link>
-				<a href="/radar/quadrant/tools/">
-					<Quadrant
-						showTitle
-						blips={blips}
-						quadrant="tools"
-						className="w-128 h-128 inline-block"
-						onClickBlip={blipClicked}
-					/>
-				</a>
+				<Link href="/radar/quadrant/tools/">
+					<a>
+						<Quadrant
+							showTitle
+							blips={blips}
+							quadrant="tools"
+							className="w-128 h-128 inline-block"
+							onClickBlip={blipClicked}
+						/>
+					</a>
+				</Link>
 			</div>
 			<div className="font-bold text-xs">
 				<RingsLabel reverse className="align-top w-128 mr-4" />
@@ -61,22 +71,26 @@ export function TechnologyRadar({ blips }: { blips: RadarBlipSummary[] }) {
 			</div>
 			<div>
 				<Link href="/radar/quadrant/platforms/">
-					<Quadrant
-						showTitle
-						blips={blips}
-						quadrant="platforms"
-						className="w-128 h-128 mr-4 inline-block"
-						onClickBlip={blipClicked}
-					/>
+					<a>
+						<Quadrant
+							showTitle
+							blips={blips}
+							quadrant="platforms"
+							className="w-128 h-128 mr-4 inline-block"
+							onClickBlip={blipClicked}
+						/>
+					</a>
 				</Link>
 				<Link href="/radar/quadrant/languages-and-frameworks/">
-					<Quadrant
-						showTitle
-						blips={blips}
-						quadrant="languages-and-frameworks"
-						className="w-128 h-128 inline-block"
-						onClickBlip={blipClicked}
-					/>
+					<a>
+						<Quadrant
+							showTitle
+							blips={blips}
+							quadrant="languages-and-frameworks"
+							className="w-128 h-128 inline-block"
+							onClickBlip={blipClicked}
+						/>
+					</a>
 				</Link>
 			</div>
 		</>
