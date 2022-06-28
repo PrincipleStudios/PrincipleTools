@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.17.5",
+    "@heroicons/react": "^1.0.6",
     "@mdx-js/loader": "^2.0.0",
     "@mdx-js/react": "^2.0.0",
     "@next/eslint-plugin-next": "^12.1.0",

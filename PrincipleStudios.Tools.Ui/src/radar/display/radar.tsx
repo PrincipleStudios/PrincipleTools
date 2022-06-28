@@ -43,18 +43,18 @@ export function TechnologyRadar({
 
 			<div>
 				<Link href="/radar/quadrant/techniques/">
-					<a>
+					<a className="inline-block mr-4">
 						<Quadrant
 							showTitle
 							blips={blips}
 							quadrant="techniques"
-							className="w-128 h-128 mr-4 inline-block"
+							className="w-128 h-128 inline-block"
 							onClickBlip={blipClicked}
 						/>
 					</a>
 				</Link>
 				<Link href="/radar/quadrant/tools/">
-					<a>
+					<a className="inline-block">
 						<Quadrant
 							showTitle
 							blips={blips}
@@ -71,18 +71,18 @@ export function TechnologyRadar({
 			</div>
 			<div>
 				<Link href="/radar/quadrant/platforms/">
-					<a>
+					<a className="inline-block mr-4">
 						<Quadrant
 							showTitle
 							blips={blips}
 							quadrant="platforms"
-							className="w-128 h-128 mr-4 inline-block"
+							className="w-128 h-128 inline-block"
 							onClickBlip={blipClicked}
 						/>
 					</a>
 				</Link>
 				<Link href="/radar/quadrant/languages-and-frameworks/">
-					<a>
+					<a className="inline-block">
 						<Quadrant
 							showTitle
 							blips={blips}

@@ -2,9 +2,10 @@ import { RadarQuadrant } from '../../types';
 import React from 'react';
 import { buffer, quadrantInfo } from '../../quadrant-info';
 
-export function Blip({ quadrant, index }: { quadrant: RadarQuadrant; index?: number }) {
+export function Blip({ quadrant, index, title }: { quadrant: RadarQuadrant; index?: number; title?: string }) {
 	return (
-		<>
+		<g>
+			{title ? <title>{title}</title> : null}
 			{quadrantInfo[quadrant].template}
 			{index !== undefined ? (
 				<text
@@ -16,6 +17,6 @@ export function Blip({ quadrant, index }: { quadrant: RadarQuadrant; index?: num
 					{index}
 				</text>
 			) : null}
-		</>
+		</g>
 	);
 }

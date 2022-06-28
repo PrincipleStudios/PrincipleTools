@@ -8,7 +8,7 @@ export const buffer = 0.07; // Based on the size of the largest template
 export const radius = 0.035;
 
 const circleFactor = 5 / 7;
-const squareFactor = 8 / 7;
+const squareFactor = 9 / 7;
 const triangleFactor = 1;
 const octFactor = 3 / 4;
 

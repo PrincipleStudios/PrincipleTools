@@ -8,6 +8,8 @@ import { headingsByBaseNumber, MdxComponentFromCode } from 'src/components/mdx';
 import { BlipSvg } from 'src/radar/display/components/blip-svg';
 import { RingsLabel } from 'src/radar/display/rings-label';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
+import ChevronLeft from '@heroicons/react/solid/ChevronLeftIcon';
 
 type QuadrantStaticProps = {
 	quadrant: RadarQuadrant;
@@ -30,7 +32,7 @@ export default function RadarQuadrantComponent({ quadrant, blips }: QuadrantProp
 		<Layout>
 			<div className="lg:relative">
 				<div className="lg:sticky lg:top-24 lg:float-right lg:w-128">
-					<Headings.h1>{title}</Headings.h1>
+					<Headings.h1 className="my-4">{title}</Headings.h1>
 					{dirY < 0 ? (
 						<div className="font-bold text-xs">
 							<RingsLabel reverse={dirX > 0} className="align-top w-128 mr-4" />
@@ -47,6 +49,13 @@ export default function RadarQuadrantComponent({ quadrant, blips }: QuadrantProp
 							<RingsLabel reverse={dirX > 0} className="align-top w-128 mr-4" />
 						</div>
 					) : null}
+					<p className="my-4">
+						<Link href="..">
+							<a>
+								<ChevronLeft className="inline-block align-middle h-4 w-4" /> Back to full radar
+							</a>
+						</Link>
+					</p>
 					<Component />
 				</div>
 				<div className="lg:w-1/2">
