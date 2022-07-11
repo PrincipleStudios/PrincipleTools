@@ -15,7 +15,7 @@ function MyApp({ Component, pageProps }: Pick<AppProps, 'Component' | 'pageProps
 			</Head>
 			<Component {...pageProps} />
 			<TooltipDisplay />
-			{isNaN(prId) ? null : <PullRequestToast prId={prId} />}
+			{isNaN(prId) || !prId ? null : <PullRequestToast prId={prId} />}
 		</>
 	);
 }
