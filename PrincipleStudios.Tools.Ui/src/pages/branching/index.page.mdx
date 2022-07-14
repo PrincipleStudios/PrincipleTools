@@ -1,0 +1,73 @@
+import Layout from 'src/components/layouts/article-layout';
+
+# Branching Strategies
+
+Principle engineering primarily recommends the thought process behind [scalable git branching model][1], though that
+post is written more as an overview than a guide on how to implement it for any specific project. The primary scenarios
+we see (from simplest to most complex) are:
+
+1. Rapid Prototyping or Continuous Deployment of a web site
+
+    When the team is very small (one or two engineers), or code is to be continuously deployed, follow this process
+    with one service line where feature branches also act as release candidates. (This is what this site uses.)
+
+2. Single latest version maintained
+
+    With gated releases such as release trains, manual approvals, etc., a more advanced process is needed. We use only
+    one service line, called "main", but use every other branch type from the original document. (This is what 
+    Principle recommends for the majority of our projects and clients.)
+
+3. Multiple maintained versions
+
+    When supporting on-premise deployed applications or open source libraries, back versions need to be maintained. In
+    these scenarios, the full branching model is used, tracking each maintained version with a separate service line
+    and keeping them all up-to-date.
+
+# Principles
+
+Here are a few principles to keep in mind when working with these branching models. We're aware that every project has
+its own needs, so keep these in mind when tweaking the process to make it your own.
+
+## Isolation until Finalized
+
+Code that is a work-in-progress usually needs to be tested before merging. Even with rapid prototyping, we prefer to
+use feature branches to assist with code reviews and ensure feature flags are in place before merging.
+
+## Multiple Bases
+
+Each branch may have more than one branch from which it is created, referred to as its base branches. This happens less
+frequently in the simpler scenarios.
+
+## Immediate Downstream Propagation
+
+When any of a branch's base branches is updated, the base branch should be re-merged into the branch. Keeping branches
+up to date with their base branches is important for continuous integration in lieu of a development branch where all
+features are continuously integrated.
+
+# Additional things to keep in mind
+
+Also known as our "secondary principles", these extra guidelines will keep everything clean and working smoothly.
+
+## No Upstream Propagation
+
+Do not merge branches into their base branch until the branch is to be deleted.
+
+## No Branch is Sacred
+
+Other than the "main" branch in the simpler workflows, any branch that gets bad data in it can simply be removed and
+recreated. Once merged into a service line, branches should be removed.
+
+> Branches that remain for an extended period eventually become stale or need to be "refreshed" manually, so do not use
+> a branch to track what is on a particular environment, at least not by merging into the branch. Resetting the branch
+> to track a release candidate is acceptable, but it may as well be a tag at that point.
+
+## Move Infrastructure Out
+
+Engineering work, such as refactoring or building shared components, should be done as their own branches, whether as
+features or infrastructure branches. This way when another engineer needs the shared component in their branch, they
+can immediately merge it in, adding a new base to their branch, and start using it - without added risk of bringing a
+feature that may not be deployable for some time.
+
+[1]: https://principlestudios.com/article/a-scalable-git-branching-model
+
+export default Layout;
