@@ -1,0 +1,21 @@
+---
+title: MV-* Patterns
+ring: adopt
+quadrant: techniques
+last-update: 2022-06-29
+---
+
+MV-* patterns, for example MVC, MVP, and MVVM (aka Presentation Model), have been in development for decades and
+continue to be relevant. Separation of concerns as applied to view layers naturally encourages moving logic to
+separate layers. Modern naming of these patterns have appeared in modern UI frameworks including Angular and React,
+with new names such as:
+
+- Container components and Presentational components
+- Connected components
+- Smart/dumb components
+
+Most of these follow MVP patterns, utilizing a component that contains a low-logic component to orchestrate what the
+user sees.
+
+Following these patterns continues to prove useful for test-driven development, component reuse, and with tools like
+[Storybook](/radar/quadrant/tools/#storybook).
