@@ -20,6 +20,11 @@ export const headingsByBaseNumber = (n: number) => ({
 
 export const mdxComponents: import('mdx/types').MDXComponents = {
 	...headingsByBaseNumber(1),
+	code: ({ children, className, ...props }) => (
+		<code className={classNames(className, 'bg-gray-200 inline-block border border-gray-400 rounded-sm')} {...props}>
+			{children}
+		</code>
+	),
 	p: ({ children, className, ...props }) => (
 		<p className={classNames(className)} {...props}>
 			{children}
@@ -71,7 +76,7 @@ export const mdxComponents: import('mdx/types').MDXComponents = {
 	hr: ({ className, ...props }) => <hr className={classNames(className, 'border-0 my-1.5')} {...props} />,
 	blockquote: ({ children, className, ...props }) => (
 		<blockquote
-			className={classNames(className, 'bg-gradient-to-r from-tan-fading p-2 my-4')}
+			className={classNames(className, 'bg-gradient-to-r from-gray-300 p-2 my-4')}
 			style={{ pageBreakInside: 'avoid' }}
 			{...props}>
 			{pipeJsx(<>{children}</>, recurse(infoFontTemplate))}

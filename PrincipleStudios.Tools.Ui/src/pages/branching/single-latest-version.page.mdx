@@ -1,0 +1,132 @@
+import Layout from 'src/components/layouts/article-layout';
+
+# Single Latest Version
+
+The Single Latest Version approach to the [scalable git branching model][1] is common for teams working on web
+applications where only a single version is maintained - the most recently deployed codebase.
+
+## Branch Types
+
+Every branch type below documents:
+* an example regular expression for a naming convention for the branches,
+* one or more example branch names, and
+* the branch types that can be used to create and update these branches.
+
+### Main Branch
+
+As our only service line, the `main` branch (or `trunk`) represents the most recently deployed code. For any new work,
+it is safe to use `main` as the base branch.
+
+* **Example Regex**: `^main$`
+* **Example Names**: `main`
+* **Based on**: N/A. Main only gets updated via Release Candidates.
+
+### Feature Branches
+
+These represent the basic unit of business work that can be included in a release. Most feature branches are based on
+the main branch, but they may also 
+
+> Depending on the project, bugs may be treated as features or they may be treated as sub-tasks for a particular
+> feature. The examples provided allow for both, but bugs reported in a feature branch should be based on the
+> feature(s) they originate from.
+
+* **Example Regex**: `^(feature|bugfix)/[A-Z]+-[0-9]+(-[^/]+)?$`
+* **Example Names**: `feature/ABC-1234`, `feature/ABC-1235-manage-profile-picture`, `bugfix/XYZ-78-update-email-validation`
+* **Based on**: Main. In some cases can be based on other feature branches, infrastructure branches.
+
+#### Sub-feature Branches
+
+Often, features can be broken down into smaller tasks to be worked by different engineers and tracked within your
+ticketing system. If features are large enough to be broken down further, these branches may be used to have a more
+granular visibility into work, allowing for easier reviews, simpler testing, and even small experiments.
+
+* **Example Regex**: `^(feature|bugfix)(/[A-Z]+-[0-9]+){2,}(-[^/]+)?$`
+* **Example Names**: `feature/ABC-1234/ABC-1237`, `feature/ABC-1235/ABC-1236-support-webp`, `bugfix/XYZ-78/XYZ-79-better-email-regex`
+* **Based on**: Parent feature, or parent integration branch.
+
+### Release Candidates
+
+When features are ready to release, they are bundled into a release candidate. For the most part, this is merging the
+features together into a branch for deployment and testing, keeping them separate from `main` in case production needs
+a hot fix or a feature needs to be pulled from the release.
+
+Do not resolve merge conflicts from merging two features into a release candidate when creating the release candidate;
+instead, create an integration branch.
+
+Bugs found in a release candidate should be fixed within the originating branch, or an integration branch that contains
+the features that caused the bug. Bug fixes should not be branched from the release candidate if at all possible; doing
+so will hinder the ability to rebuild the release candidate if a feature needs to be removed.
+
+If a feature needs to be removed from a release candidate, rather than trying to revert commits, a fresh release
+candidate should be made from the features still preserved.
+
+* **Example Regex**: `^rc/[0-9]{4}-[0-9]{2}-[0-9]{2}(\.[0-9]+)?$`
+* **Example Names**: `rc/2022-07-14`, `rc/2022-07-14.1`
+* **Based on**: Main (or a pending release candidate) and one or more feature branches
+
+### Integration branches
+
+Sometimes, two features are targetted for the same release but have conflicts with each other. Whether found via merge
+conflicts or from bugs resulting from conflicting logic, integration branches are used for resolving integration
+issues.
+
+* **Example Regex**: `^integrate(/[A-Z]+-[0-9]+){2,}$`; by convention, tickets get alphabetically ordered
+* **Example Names**: `integrate/ABC-1234/ABC-1235`, `integrate/ABC-1234/ABC-1235/XYZ-78`
+* **Based on**: Two or more feature branches
+
+### Less-common branch types
+
+The following branch types are not used in all projects.
+
+#### Hotfixes
+
+Some projects, when discovering an issue in production, have a need to track fixes separately from a standard feature
+and release candidate process. Hotfix branches act as a combination of Feature and Release Candidates; they have
+developer changes, but may be treated as a release candidate for testing and releases.
+
+* **Example Regex**: `^hotfix/[A-Z]+-[0-9]+(-[^/]+)?$`
+* **Example Names**: `hotfix/FF-2`, `hotfix/FF-3-fix-db-pooling`
+* **Based on**: Main
+
+#### Infrastructure branches
+
+Some projects do not track technical investments, such as refactoring and additional shared components, as features.
+When not tracked, engineers should put shared infrastructure in one of these infrastructure branches. Engineers may
+add an infrastructure branch as a base for their features; the shared commits between the infrastructure will reach
+main when the first feature that includes it is released.
+
+* **Example Regex**: `^infra/`
+* **Example Names**: `infra/button-component`, `infra/refactor-plugin-api`, `infra/update-typescript`
+* **Based on**: Main, or other infrastructure branches when necessary.
+
+## Standard processes
+
+Most engineers should be used to creating a feature branch from `main`, and a sub-feature branch from the feature
+branch. When any base branch is updated, engineers should update the downstream branch, keeping it up-to-date.
+
+### Releases
+
+Once a release candidate is approved to go to production:
+
+* Merge it to `main`
+* Delete its base branches recursively, including infrastructure branches.
+
+(TODO: diagram needed.)
+
+### Re-integrating integration branches
+
+If all but one of the base branches of an integration branch is merged to main, the integration branch may be merged
+into its other base.
+
+(TODO: diagram needed.)
+
+## Automation and Branch policies
+
+* Subfeatures and features should have checks run, such as unit tests, builds, type checks, linting, etc.
+* Release candidates and hotfixes should be deployed to testing environments. Release candidates should only be built
+  from feature branches, with no revert commits or conflict resolution.
+* Main should only be merged from release candidates with approval from QA and should be deployed automatically to production.
+
+[1]: https://principlestudios.com/article/a-scalable-git-branching-model
+
+export default Layout;
