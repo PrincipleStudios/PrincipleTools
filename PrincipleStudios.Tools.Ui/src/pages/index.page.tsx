@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { Headings } from 'src/components/headings';
 import Layout from 'src/components/layouts/article-layout';
 import { getAllPackages, OpenSourcePackageSummary } from 'src/open-source/summary';
+import { Guides } from 'src/page-components/index/components/guides';
 import { OpenSourcePackages } from 'src/page-components/index/components/open-source-packages';
 import { RadarBlipSummary, TechnologyRadar } from 'src/radar';
 import { getAllRadarBlips } from '../radar/load';
@@ -21,6 +22,7 @@ const IndexPage = ({ openSourcePackages, blips }: IndexProps) => {
 			<Headings.h1>Principle Studios Tools</Headings.h1>
 			<p>A set of resources by and for Principle Studios team members</p>
 
+			<Guides />
 			<OpenSourcePackages packages={openSourcePackages} />
 			<TechnologyRadar blips={blips} />
 		</Layout>
