@@ -93,6 +93,11 @@ async function getBlipByFilePath(relativePath: string): Promise<RadarBlip> {
 			`Invalid quadrant found for ${slug}. Got ${frontmatter.quadrant}, expected one of: ${radarQuadrants}`
 		);
 	}
+	const lastUpdate = frontmatter['last-update'] as Date | string;
+	delete frontmatter['last-update']; // I'm not sure why I need to delete this; it seems something still has a reference to it
+	if (!(lastUpdate instanceof Date)) {
+		throw new Error(`Invalid last-update provided for ${slug}. Got ${lastUpdate}, expected an ISO-8601 date.`);
+	}
 
 	return {
 		index: await indexFromFile(relativePath),
@@ -102,6 +107,7 @@ async function getBlipByFilePath(relativePath: string): Promise<RadarBlip> {
 			title: frontmatter.title,
 			ring: frontmatter.ring,
 			quadrant: frontmatter.quadrant,
+			lastUpdate: lastUpdate.toISOString(),
 		},
 	};
 }

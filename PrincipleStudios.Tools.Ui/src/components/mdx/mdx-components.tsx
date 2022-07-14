@@ -26,7 +26,7 @@ export const mdxComponents: import('mdx/types').MDXComponents = {
 		</code>
 	),
 	p: ({ children, className, ...props }) => (
-		<p className={classNames(className)} {...props}>
+		<p className={classNames(className, 'my-2')} {...props}>
 			{children}
 		</p>
 	),

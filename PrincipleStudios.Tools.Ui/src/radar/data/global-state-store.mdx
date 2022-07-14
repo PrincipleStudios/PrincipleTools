@@ -1,0 +1,11 @@
+---
+title: Global Application State Store
+ring: hold
+quadrant: techniques
+last-update: 2022-06-28
+---
+
+Global Application state storage tends to be an anti-pattern for most applications. Libraries such as Redux and MobX
+assist developers to create a structured application storage, but applications tend to devolve into situations of leaky
+abstractions and poor encapsulation. Instead, consider many smaller storage solutions encapsulated as service objects,
+used sparingly but with additional levels of abstraction as needed.
