@@ -43,8 +43,10 @@ Often, features can be broken down into smaller tasks to be worked by different 
 ticketing system. If features are large enough to be broken down further, these branches may be used to have a more
 granular visibility into work, allowing for easier reviews, simpler testing, and even small experiments.
 
-* **Example Regex**: `^(feature|bugfix)(/[A-Z]+-[0-9]+){2,}(-[^/]+)?$`
-* **Example Names**: `feature/ABC-1234/ABC-1237`, `feature/ABC-1235/ABC-1236-support-webp`, `bugfix/XYZ-78/XYZ-79-better-email-regex`
+* **Example Regex**: `^(feature|bugfix)/([A-Z]+-[0-9]+)(_[A-Z]+-[0-9]+)+(-[^/]+)?$`
+* **Example Names**: `feature/ABC-1234_ABC-1237`, `feature/ABC-1235_ABC-1236-support-webp`, `bugfix/XYZ-78_XYZ-79-better-email-regex`
+    * _Note: Because git uses file paths, slashes cannot delimit each ticket name without conflicting with comment-free
+      feature branches._
 * **Based on**: Parent feature, or parent integration branch.
 
 ### Release Candidates
@@ -73,8 +75,10 @@ Sometimes, two features are targetted for the same release but have conflicts wi
 conflicts or from bugs resulting from conflicting logic, integration branches are used for resolving integration
 issues.
 
-* **Example Regex**: `^integrate(/[A-Z]+-[0-9]+){2,}$`; by convention, tickets get alphabetically ordered
-* **Example Names**: `integrate/ABC-1234/ABC-1235`, `integrate/ABC-1234/ABC-1235/XYZ-78`
+* **Example Regex**: `^integrate/([A-Z]+-[0-9]+)(_[A-Z]+-[0-9]+)+$`; by convention, tickets get alphabetically ordered
+* **Example Names**: `integrate/ABC-1234_ABC-1235`, `integrate/ABC-1234_ABC-1235_XYZ-78`
+    * _Note: Because git uses file paths, slashes cannot delimit each ticket name without conflicting with comment-free
+      feature branches._
 * **Based on**: Two or more feature branches
 
 ### Less-common branch types
