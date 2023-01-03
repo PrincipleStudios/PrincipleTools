@@ -37,6 +37,16 @@ $dump = az role assignment create `
         --query id -o tsv) `
     --only-show-errors
 
+$dump = az role assignment create `
+    --role "Azure Kubernetes Service RBAC Writer" `
+    --assignee-principal-type ServicePrincipal `
+    --assignee-object-id $objectId `
+    --scope "$(az aks show `
+        --resource-group $aksResourceGroup `
+        --name $aksName `
+        --query id -o tsv)/namespaces/principle-tools" `
+    --only-show-errors
+
 $dump = az ad group member add --group 107f6fd6-054f-441b-bfe3-815b145eb5c4 --member-id $objectId
 
 @{

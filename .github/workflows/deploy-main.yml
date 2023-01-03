@@ -51,7 +51,11 @@ jobs:
 
     - name: Helm tool installer
       uses: Azure/setup-helm@v1
+      with:
+        version: '3.10.0'
 
     - name: 'Deploy'
       run: |
+        helm repo add ps https://principlestudios.github.io/helm-charts
+        helm repo update ps
         helm upgrade --install -n $k8sNamespace $releaseName --create-namespace --repo https://principlestudios.github.io/helm-charts single-container --set-string "image.repository=$registryLoginServer/$imageName,image.tag=${{ github.sha }}" --values ./deployment/values.yaml --values ./deployment/values.prod.yaml

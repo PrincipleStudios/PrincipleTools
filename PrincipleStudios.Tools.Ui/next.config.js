@@ -9,8 +9,13 @@ const config = {
         );
         fileLoaderRule.exclude = /\.svg$/;
         config.module.rules.push({
-          test: /\.svg$/,
-          loader: require.resolve('@svgr/webpack'),
+          test: /\.svg$/i,
+          use: [require.resolve('@svgr/webpack')],
+        });
+        config.module.rules.push({
+          test: /\.svg?url$/i,
+          type: 'asset',
+          resourceQuery: /url/,
         });
         return config;
     },
