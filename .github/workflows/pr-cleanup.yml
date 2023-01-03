@@ -38,4 +38,4 @@ jobs:
 
     - name: 'Clean up Kubernetes'
       run: |
-        helm delete -n ${{ env.k8sNamespace }} ${{ env.releaseName }} --wait
+        helm delete -n ${{ env.k8sNamespace }} ${{ env.releaseName }}
