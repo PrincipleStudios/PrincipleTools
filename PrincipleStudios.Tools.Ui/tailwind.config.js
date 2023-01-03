@@ -19,7 +19,7 @@ const colors = {
 /** @type {import('@types/tailwindcss/tailwind-config.d').TailwindConfig} */
 const tailwindConfig = {
   content: [
-    './src/**/*.{ts,tsx,js,jsx}'
+    './src/**/*.{ts,tsx,js,jsx,mdx}'
   ],
 	theme: {
 		extend: {
