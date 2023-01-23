@@ -19,3 +19,9 @@ Because of the number of optional parts, make a copy of this template for your p
 * "Decision Drivers" - Include when the decision driver is not self-evident, or if it is superceding a past ADR
 * "Positive Consequences" + "Negative Consequences" or "Pros and Cons of the Options" - Include only one set of sections - prefer "Pros and Cons of the Options" if multiple options were considered.
 * "Additional References" - Include if additional references are available for further reading.
+
+# Additional References
+
+* Other templates
+    - [Decision record template for Alexandrian pattern](https://raw.githubusercontent.com/joelparkerhenderson/architecture-decision-record/315e9b721b8c3719573a3ef68d5163a082c22a6c/templates/decision-record-template-for-alexandrian-pattern/index.md)
+    - [Decision record template for MADR (acronym unknown)](https://raw.githubusercontent.com/joelparkerhenderson/architecture-decision-record/315e9b721b8c3719573a3ef68d5163a082c22a6c/templates/decision-record-template-madr/index.md)
