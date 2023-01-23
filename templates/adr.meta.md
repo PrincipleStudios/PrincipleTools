@@ -17,7 +17,9 @@ Because of the number of optional parts, make a copy of this template for your p
 ## Option parts that change per ADR
 
 * "Decision Drivers" - Include when the decision driver is not self-evident, or if it is superceding a past ADR
-* "Positive Consequences" + "Negative Consequences" or "Pros and Cons of the Options" - Include only one set of sections - prefer "Pros and Cons of the Options" if multiple options were considered.
+* Include only one of the following:
+    * "Pros and Cons of the Options" - Include this if multiple options were considered.
+    * "Positive Consequences" + "Negative Consequences" - Include this if only one option was fully considered, or the opposite is self-evident.
 * "Additional References" - Include if additional references are available for further reading.
 
 # Additional References
