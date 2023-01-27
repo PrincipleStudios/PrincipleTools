@@ -35,7 +35,9 @@ jobs:
 
     - name: Helm tool installer
       uses: Azure/setup-helm@v1
+      with:
+        version: '3.10.0'
 
     - name: 'Clean up Kubernetes'
       run: |
-        helm delete -n ${{ env.k8sNamespace }} ${{ env.releaseName }} --wait
+        helm delete -n ${{ env.k8sNamespace }} ${{ env.releaseName }}
