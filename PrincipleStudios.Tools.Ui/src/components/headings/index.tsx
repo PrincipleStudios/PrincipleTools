@@ -1,11 +1,14 @@
-import classNames from 'classnames';
+import { twMerge } from 'tailwind-merge';
 import { pipeJsx } from '../jsx/pipeJsx';
 import { mergeStyles } from '../jsx/mergeStyles';
-import React, { createElement } from 'react';
-import { clamp } from 'lodash/fp';
+import { createElement } from 'react';
+import clamp from 'lodash/fp/clamp';
 
 const headerTemplate = mergeStyles(
-	<i className={classNames('font-header font-bold', 'mt-4 first:mt-0')} style={{ pageBreakAfter: 'avoid' }} />
+	<i
+		className={twMerge('font-header font-bold', 'mt-4 first:mt-0')}
+		style={{ pageBreakAfter: 'avoid' }}
+	/>
 );
 
 const header =
@@ -15,7 +18,7 @@ const header =
 			createElement(
 				elem,
 				{
-					className: classNames(className, fontSizeClass),
+					className: twMerge(fontSizeClass, className),
 					...props,
 				},
 				children
@@ -33,5 +36,6 @@ export const Headings = {
 	// h7 to be used because our mdx down-steps all header tags intentionally
 	h7: header('h6', 'text-xs'),
 
-	byNumber: (n: number) => Headings[`h${Math.floor(clamp(1, 7, n)) as 1 | 2 | 3 | 4 | 5 | 6 | 7}`],
+	byNumber: (n: number) =>
+		Headings[`h${Math.floor(clamp(1, 7, n)) as 1 | 2 | 3 | 4 | 5 | 6 | 7}`],
 };

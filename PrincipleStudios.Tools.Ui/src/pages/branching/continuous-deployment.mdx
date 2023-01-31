@@ -1,4 +1,5 @@
-import Layout from 'src/components/layouts/article-layout';
+import Layout from '@/components/layouts/Layout.astro';
+export { components } from '@/components/mdx';
 
 [&larr; Other Branching Strategies](..)
 
@@ -11,18 +12,19 @@ two, such as during the rapid prototyping phase of a project.
 ## Branch Types
 
 Every branch type below documents:
-* an example regular expression for a naming convention for the branches,
-* one or more example branch names, and
-* the branch types that can be used to create and update these branches.
+
+- an example regular expression for a naming convention for the branches,
+- one or more example branch names, and
+- the branch types that can be used to create and update these branches.
 
 ### Main Branch
 
 As our only service line, the `main` branch (or `trunk`) represents the most recently deployed code. For any new work,
 it is safe to use `main` as the base branch.
 
-* **Example Regex**: `^main$`
-* **Example Names**: `main`
-* **Based on**: N/A. Main only gets updated after approval of a feature.
+- **Example Regex**: `^main$`
+- **Example Names**: `main`
+- **Based on**: N/A. Main only gets updated after approval of a feature.
 
 ### Feature Branches
 
@@ -36,9 +38,9 @@ include infrastructure branches.
 When features are ready to release, they are tested directly, and the feature branch is merged to `main` and deployed
 when it is approved for production.
 
-* **Example Regex**: `^(feature|bugfix)/[A-Z]+-[0-9]+(-[^/]+)?$`
-* **Example Names**: `feature/ABC-1234`, `feature/ABC-1235-manage-profile-picture`, `bugfix/XYZ-78-update-email-validation`
-* **Based on**: Main. In some cases can be based infrastructure branches.
+- **Example Regex**: `^(feature|bugfix)/[A-Z]+-[0-9]+(-[^/]+)?$`
+- **Example Names**: `feature/ABC-1234`, `feature/ABC-1235-manage-profile-picture`, `bugfix/XYZ-78-update-email-validation`
+- **Based on**: Main. In some cases can be based infrastructure branches.
 
 #### Sub-feature Branches
 
@@ -48,11 +50,11 @@ easier reviews, simpler testing, and even small experiments.
 
 Once a sub-feature is merged into its parent feature, the sub-feature branch should be deleted.
 
-* **Example Regex**: `^(feature|bugfix)/([A-Z]+-[0-9]+)(_[A-Z]+-[0-9]+)+(-[^/]+)?$`
-* **Example Names**: `feature/ABC-1234_ABC-1237`, `feature/ABC-1235_ABC-1236-support-webp`, `bugfix/XYZ-78_XYZ-79-better-email-regex`
-    * _Note: Because git uses file paths, slashes cannot delimit each ticket name without conflicting with comment-free
-      feature branches._
-* **Based on**: Parent feature.
+- **Example Regex**: `^(feature|bugfix)/([A-Z]+-[0-9]+)(_[A-Z]+-[0-9]+)+(-[^/]+)?$`
+- **Example Names**: `feature/ABC-1234_ABC-1237`, `feature/ABC-1235_ABC-1236-support-webp`, `bugfix/XYZ-78_XYZ-79-better-email-regex`
+  - _Note: Because git uses file paths, slashes cannot delimit each ticket name without conflicting with comment-free
+    feature branches._
+- **Based on**: Parent feature.
 
 ### Less-common branch types
 
@@ -65,9 +67,9 @@ When not tracked, engineers should put shared infrastructure in one of these inf
 add an infrastructure branch as a base for their features; the shared commits between the infrastructure will reach
 main when the first feature that includes it is released.
 
-* **Example Regex**: `^infra/`
-* **Example Names**: `infra/button-component`, `infra/refactor-plugin-api`, `infra/update-typescript`
-* **Based on**: Main, or other infrastructure branches when necessary.
+- **Example Regex**: `^infra/`
+- **Example Names**: `infra/button-component`, `infra/refactor-plugin-api`, `infra/update-typescript`
+- **Based on**: Main, or other infrastructure branches when necessary.
 
 ## Standard processes
 
@@ -78,14 +80,14 @@ branch. When any base branch is updated, engineers should update the downstream 
 
 Once a feature is approved to go to production:
 
-* Merge it to `main`
-* Delete its base branches recursively, including infrastructure branches.
+- Merge it to `main`
+- Delete its base branches recursively, including infrastructure branches.
 
 ## Automation and Branch policies
 
-* Subfeatures and features should have checks run, such as unit tests, builds, type checks, linting, etc.
-* Features with pull requests to main should be deployed to testing environments.
-* Main should only be merged from features with approval from QA and should be deployed automatically to production.
+- Subfeatures and features should have checks run, such as unit tests, builds, type checks, linting, etc.
+- Features with pull requests to main should be deployed to testing environments.
+- Main should only be merged from features with approval from QA and should be deployed automatically to production.
 
 [1]: https://principlestudios.com/article/a-scalable-git-branching-model
 

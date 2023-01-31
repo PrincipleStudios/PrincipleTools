@@ -1,4 +1,4 @@
-import { Headings } from 'src/components/headings';
+import { Headings } from '@/components/headings';
 
 export function Guides() {
 	return (

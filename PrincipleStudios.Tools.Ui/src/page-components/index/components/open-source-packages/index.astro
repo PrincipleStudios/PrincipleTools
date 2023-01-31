@@ -1,0 +1,42 @@
+---
+import groupBy from 'lodash/fp/groupBy';
+import { Fragment } from 'react';
+import { Headings } from '@/components/headings';
+import type { OpenSourcePackageSummary } from '@/open-source/utils.astro';
+
+export type Props = {
+	packages: OpenSourcePackageSummary[];
+};
+
+const { packages: allPackages } = Astro.props;
+
+const byLanguage = Object.entries(groupBy((pkg) => pkg.language, allPackages));
+---
+
+<Headings.h2>Open Source Packages</Headings.h2>
+<p class="max-w-xl my-2">
+	Principle Studios creates a wide variety of projects, but we don&apos;t
+	re-invent the wheel on each of them. To help our developers and clients be
+	more efficient, we occasionally have the opportunity to roll these into
+	packages that can be easily installed.
+</p>
+<p class="max-w-xl my-2">See individual packages for licensing information.</p>
+{
+	byLanguage.map(([language, packages]) => (
+		<Fragment>
+			<Headings.h3>{language}</Headings.h3>
+			<ul>
+				{packages.map((pkg) => (
+					<li>
+						<a href={pkg.url} class="flex items-center gap-1">
+							<span class="w-32 flex justify-end">
+								<img src={pkg.badgeUrl} alt="To Package Site" />
+							</span>
+							{pkg.title}
+						</a>
+					</li>
+				))}
+			</ul>
+		</Fragment>
+	))
+}

@@ -1,4 +1,5 @@
-import Layout from 'src/components/layouts/article-layout';
+import Layout from '@/components/layouts/Layout.astro';
+export { components } from '@/components/mdx';
 
 # Branching Strategies
 
@@ -8,20 +9,20 @@ we see (from simplest to most complex) are:
 
 1. [Continuous Deployment](./continuous-deployment/)
 
-    When the code is to be continously deployed, or when the team is very small (one or two engineers), follow this process
-    with one service line where feature branches also act as release candidates. (This is what this site uses.)
+   When the code is to be continously deployed, or when the team is very small (one or two engineers), follow this process
+   with one service line where feature branches also act as release candidates. (This is what this site uses.)
 
 2. [Single latest version maintained](./single-latest-version/)
 
-    With gated releases such as release trains, manual approvals, etc., a more advanced process is needed. We use only
-    one service line, called "main", but use every other branch type from the original document. (This is what 
-    Principle recommends for the majority of our projects and clients.)
+   With gated releases such as release trains, manual approvals, etc., a more advanced process is needed. We use only
+   one service line, called "main", but use every other branch type from the original document. (This is what
+   Principle recommends for the majority of our projects and clients.)
 
 3. Multiple maintained versions
 
-    When supporting on-premise deployed applications or open source libraries, back versions need to be maintained. In
-    these scenarios, the full branching model is used, tracking each maintained version with a separate service line
-    and keeping them all up-to-date.
+   When supporting on-premise deployed applications or open source libraries, back versions need to be maintained. In
+   these scenarios, the full branching model is used, tracking each maintained version with a separate service line
+   and keeping them all up-to-date.
 
 # Principles
 

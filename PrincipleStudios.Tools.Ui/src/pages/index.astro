@@ -1,0 +1,20 @@
+---
+import Layout from '@/components/layouts/Layout.astro';
+import { Headings } from '@/components/headings';
+
+import { Guides } from '@/page-components/index/components/guides';
+import { getAllPackages } from '@/open-source/utils.astro';
+import OpenSourcePackages from '@/page-components/index/components/open-source-packages/index.astro';
+
+const openSourcePackages = await getAllPackages();
+// const blips = await getAllRadarBlips();
+---
+
+<Layout title="Principle Studios Tools">
+	<Headings.h1>Principle Studios Tools</Headings.h1>
+	<p>A set of resources by and for Principle Studios team members</p>
+
+	<Guides />
+	<OpenSourcePackages packages={openSourcePackages} />
+	<!-- <TechnologyRadar blips={blips} /> -->
+</Layout>

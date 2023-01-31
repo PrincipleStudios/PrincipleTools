@@ -1,25 +1,29 @@
 
-#### next.js gitignore
+#### astro gitignore
+# build output
+/PrincipleStudios.Tools.Ui/dist/
+
+# generated types
+/PrincipleStudios.Tools.Ui/.astro/
+
+# dependencies
+/PrincipleStudios.Tools.Ui/node_modules/
+
+# logs
+/PrincipleStudios.Tools.Ui/npm-debug.log*
+/PrincipleStudios.Tools.Ui/yarn-debug.log*
+/PrincipleStudios.Tools.Ui/yarn-error.log*
+/PrincipleStudios.Tools.Ui/pnpm-debug.log*
+
+# environment variables
+/PrincipleStudios.Tools.Ui/.env
+/PrincipleStudios.Tools.Ui/.env.production
+
+# macOS-specific files
+/PrincipleStudios.Tools.Ui/.DS_Store
+
 /PrincipleStudios.Tools.Ui/coverage
-
-# next.js
-/PrincipleStudios.Tools.Ui/.next/
-/PrincipleStudios.Tools.Ui/out/
-
-# production
-/PrincipleStudios.Tools.Ui/build
-
-# debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# local env files
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-#### end next.js gitignore
+#### end astro gitignore
 
 #### husky ignore
 /PrincipleStudios.Tools.Ui/.husky/_/

@@ -11,17 +11,20 @@ RUN npm ci
 # Rebuild the source code only when needed
 COPY PrincipleStudios.Tools.Ui/ .
 
-# Next.js collects completely anonymous telemetry data about general usage.
-# Learn more here: https://nextjs.org/telemetry
-ENV NEXT_TELEMETRY_DISABLED 1
+# Disable Astro telemetry
+ENV ASTRO_TELEMETRY_DISABLED=1
 
-RUN ./node_modules/.bin/jest
+ARG GIT_HASH=HEAD
+ENV GIT_HASH=${GIT_HASH}
+ARG DOMAIN=https://principle.tools
 ARG PR_ID
-ENV NEXT_PUBLIC_PR_ID=$PR_ID
-RUN npm run build
+ENV PR_ID=$PR_ID
+RUN npm run build -- --site $DOMAIN
+
+WORKDIR /app/dist
+
+RUN echo $GIT_HASH > ./git-version.txt
 
 FROM base AS final
 
-# ARG GITHASH
-# ENV BUILD__GITHASH=${GITHASH}
-COPY --from=build-node /app/out ./wwwroot
+COPY --from=build-node /app/dist ./wwwroot

@@ -1,12 +1,12 @@
-import { MDXProvider } from '@mdx-js/react';
-import classNames from 'classnames';
+import { twMerge } from 'tailwind-merge';
 import { recurse } from '../jsx/recurse';
 import { pipeJsx } from '../jsx/pipeJsx';
 import { mergeStyles } from '../jsx/mergeStyles';
-import React from 'react';
 import { Headings } from '../headings';
 
-const rowTemplate = mergeStyles(<tr className="to-white border-b-2 border-white font-info" />);
+const rowTemplate = mergeStyles(
+	<tr className="to-white border-b-2 border-white font-info" />
+);
 const infoFontTemplate = mergeStyles(<i className="font-info" />);
 
 export const headingsByBaseNumber = (n: number) => ({
@@ -18,79 +18,97 @@ export const headingsByBaseNumber = (n: number) => ({
 	h6: Headings.byNumber(n + 5),
 });
 
-export const mdxComponents: import('mdx/types').MDXComponents = {
+export const components: import('mdx/types').MDXComponents = {
 	...headingsByBaseNumber(1),
 	code: ({ children, className, ...props }) => (
-		<code className={classNames(className, 'bg-gray-200 inline-block border border-gray-400 rounded-sm')} {...props}>
+		<code
+			className={twMerge(
+				'bg-gray-200 inline-block border border-gray-400 rounded-sm',
+				className
+			)}
+			{...props}
+		>
 			{children}
 		</code>
 	),
 	p: ({ children, className, ...props }) => (
-		<p className={classNames(className, 'my-2')} {...props}>
+		<p className={twMerge('my-2', className)} {...props}>
 			{children}
 		</p>
 	),
 	table: ({ children, className, ...props }) => (
-		<div className="overflow-auto print:overflow-visible my-2" style={{ breakInside: 'avoid' }}>
-			<table className={classNames(className, 'w-full border-collapse')} style={{ breakInside: 'avoid' }} {...props}>
+		<div
+			className="overflow-auto print:overflow-visible my-2"
+			style={{ breakInside: 'avoid' }}
+		>
+			<table
+				className={twMerge('w-full border-collapse', className)}
+				style={{ breakInside: 'avoid' }}
+				{...props}
+			>
 				{children}
 			</table>
 		</div>
 	),
 	a: ({ children, className, ...props }) => (
-		<a className={classNames(className, 'underline')} {...props}>
+		<a className={twMerge('underline', className)} {...props}>
 			{children}
 		</a>
 	),
 	thead: ({ children, className, ...props }) => (
-		<thead className={classNames(className)} {...props}>
+		<thead className={twMerge(className)} {...props}>
 			{children}
 		</thead>
 	),
-	tbody: ({ children, ...props }) => <tbody {...props}>{pipeJsx(<>{children}</>, recurse(rowTemplate))}</tbody>,
+	tbody: ({ children, ...props }) => (
+		<tbody {...props}>{pipeJsx(<>{children}</>, recurse(rowTemplate))}</tbody>
+	),
 	td: ({ children, className, ...props }) => (
-		<td className={classNames(className, 'px-2 font-bold align-top')} {...props}>
+		<td className={twMerge('px-2 font-bold align-top', className)} {...props}>
 			{children}
 		</td>
 	),
 	th: ({ children, className, ...props }) => (
-		<th className={classNames(className, 'px-2 font-bold align-bottom')} {...props}>
+		<th
+			className={twMerge('px-2 font-bold align-bottom', className)}
+			{...props}
+		>
 			{children}
 		</th>
 	),
 	ul: ({ children, className, ...props }) => (
-		<ul className={classNames(className, 'list-disc ml-6')} {...props}>
+		<ul className={twMerge('list-disc ml-6', className)} {...props}>
 			{children}
 		</ul>
 	),
 	ol: ({ children, className, ...props }) => (
-		<ul className={classNames(className, 'list-decimal ml-6')} {...props}>
+		<ul className={twMerge('list-decimal ml-6', className)} {...props}>
 			{children}
 		</ul>
 	),
 	li: ({ children, className, ...props }) => (
-		<li className={classNames(className, 'my-1')} {...props}>
+		<li className={twMerge('my-1', className)} {...props}>
 			{children}
 		</li>
 	),
-	hr: ({ className, ...props }) => <hr className={classNames(className, 'border-0 my-1.5')} {...props} />,
+	hr: ({ className, ...props }) => (
+		<hr className={twMerge('border-0 my-1.5', className)} {...props} />
+	),
 	blockquote: ({ children, className, ...props }) => (
 		<blockquote
-			className={classNames(className, 'bg-gradient-to-r from-gray-300 p-2 my-4')}
+			className={twMerge('bg-gradient-to-r from-gray-300 p-2 my-4', className)}
 			style={{ pageBreakInside: 'avoid' }}
-			{...props}>
+			{...props}
+		>
 			{pipeJsx(<>{children}</>, recurse(infoFontTemplate))}
 		</blockquote>
 	),
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	img: ({ src, alt, placeholder, ...props }) => (src ? <img src={src} alt={alt} {...props} /> : <></>),
+	img: ({ src, alt, placeholder, ...props }) =>
+		src ? <img src={src} alt={alt} {...props} /> : <></>,
 	strong: ({ children, ...props }) => (
 		<span className="font-bold" {...props}>
 			{children}
 		</span>
 	),
 };
-
-export const MdxComponents = ({ children }: { children: React.ReactNode }) => (
-	<MDXProvider components={mdxComponents}>{children}</MDXProvider>
-);

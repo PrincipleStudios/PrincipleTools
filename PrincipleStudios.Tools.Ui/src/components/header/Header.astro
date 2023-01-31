@@ -1,0 +1,25 @@
+---
+export type Props = {
+	className?: string;
+};
+import { twMerge } from 'tailwind-merge';
+import Spaced from '../spaced/Spaced.astro';
+import { Logo } from '../logo/Logo';
+
+const { className } = Astro.props;
+---
+
+<header class={twMerge('fixed top-0 w-full z-10', className)}>
+	<Spaced className="flex justify-between">
+		<div class="flex">
+			<a href="/" class="justify-self-end">
+				<Logo className="h-20" title="Principle Tools Home" />
+			</a>
+
+			<nav class="flex justify-between items-center ml-3">
+				{/* <span className="px-6">Home</span> */}
+			</nav>
+		</div>
+	</Spaced>
+</header>
+<div class="h-20"></div>
