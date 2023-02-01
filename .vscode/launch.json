@@ -7,9 +7,16 @@
       "request": "launch",
       "type": "node-terminal",
       "cwd": "${workspaceFolder}/PrincipleStudios.Tools.Ui",
-      // "env": {
-      //   "PR_ID": "1"
-      // }
+    },
+    {
+      "command": "./node_modules/.bin/astro dev",
+      "name": "Development server with PR link preview",
+      "request": "launch",
+      "type": "node-terminal",
+      "cwd": "${workspaceFolder}/PrincipleStudios.Tools.Ui",
+      "env": {
+        "PR_ID": "1"
+      }
     }
   ]
 }
