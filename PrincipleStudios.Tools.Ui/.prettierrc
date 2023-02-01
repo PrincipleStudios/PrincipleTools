@@ -1,7 +1,5 @@
 {
-    "useTabs": true,
-    "printWidth": 120,
-    "bracketSameLine": true,
-    "singleQuote": true,
-    "endOfLine": "auto"
+	"useTabs": true,
+	"singleQuote": true,
+	"endOfLine": "auto"
 }

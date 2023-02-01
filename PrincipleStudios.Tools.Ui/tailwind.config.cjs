@@ -18,16 +18,14 @@ const colors = {
 
 /** @type {import('@types/tailwindcss/tailwind-config.d').TailwindConfig} */
 const tailwindConfig = {
-  content: [
-    './src/**/*.{ts,tsx,js,jsx,mdx}'
-  ],
+	content: ['./src/**/*.{ts,tsx,js,jsx,md,mdx,astro}'],
 	theme: {
 		extend: {
 			width: {
 				content: '800px',
 			},
 			spacing: {
-				'128': '32rem',
+				128: '32rem',
 			},
 		},
 		colors,
@@ -41,7 +39,7 @@ const tailwindConfig = {
 			textColor: ['group-focus'],
 		},
 	},
-  plugins: [],
-}
+	plugins: [],
+};
 
 module.exports = tailwindConfig;

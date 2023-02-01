@@ -30,7 +30,7 @@ jobs:
 
     - name: 'Build and push image'
       run: |
-        docker build . -t $registryLoginServer/$imageName:pr-${{ github.sha }} --build-arg PR_ID=${{ github.event.pull_request.number }}
+        docker build . -t $registryLoginServer/$imageName:pr-${{ github.sha }} --build-arg PR_ID=${{ github.event.pull_request.number }} --build-arg DOMAIN=https://pr-${{ github.event.pull_request.number }}.principle.tools
         docker push $registryLoginServer/$imageName:pr-${{ github.sha }}
 
     # Set the target Azure Kubernetes Service (AKS) cluster.
