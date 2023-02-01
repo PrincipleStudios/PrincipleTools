@@ -7,7 +7,7 @@ export type OpenSourcePackageSummary = {
 };
 
 export async function getAllPackages(): Promise<OpenSourcePackageSummary[]> {
-	const matchingFiles = await Astro.glob('/open-source/**/*.json');
+	const matchingFiles = await Astro.glob('./**/*.json');
 	return await Promise.all(
 		matchingFiles.map((packageInfo) => ({
 			title: packageInfo.title,
