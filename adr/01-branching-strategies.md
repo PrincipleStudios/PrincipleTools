@@ -1,0 +1,126 @@
+# Branching Strategies
+
+## Context and Problem Statement
+
+As a consulting company, we need a recommendation for a branching strategy, or a
+go-to when we start new projects. Many clients likely already have their own
+strategy in place, but Principle often works faster and differently than the
+teams embedded within their own company.
+
+Each client has different restrictions, from SOX compliance, CI/CD rules, SDLC
+requirements, etc. We want a branching strategy that developers can get used to
+and use across most projects.
+
+Some requirements for clients, in no particular order:
+
+* Begin development on a future release prior to the next release being
+  finalized.
+* Ability to remove a feature from a release after it has been "committed." This
+  can refer to either "backing out" a buggy change or simply delaying a feature
+  due to an external dependency.
+* Ability to move quickly and release reliably.
+* Allow for manually gated approvals on releases.
+* Support code reviews.
+* Support multiple ongoing features/epics.
+
+## Considered Options
+
+* Git Flow
+* GitHub Flow
+* Trunk-based Development
+* Scalable Git Branching Model
+* Using rebase merges
+
+## Decision Outcome
+
+For most clients, the chosen option is the Scalable Git Branching Model, because
+it can scale down to a small size to support fast-moving teams and also scale up
+to handle more complex teams.
+
+The largest drawback is onboarding and complexity; this has been mitigated with
+documentation and tooling.
+
+This can always be superceded by client decisions.
+
+## Pros and Cons of the Options
+
+### Git Flow
+
+The [original Git Flow definition article](https://nvie.com/posts/a-successful-git-branching-model/)
+was updated in March of 2020, saying:
+
+> Web apps are ... not the class of software that I had in mind when I wrote the
+> blog post 10 years ago. If your team is doing continuous delivery of software,
+> I would suggest to adopt a much simpler workflow.
+
+* Good, because it is well known.
+* Good, because it supports the idea of gated releases.
+* Bad, because the development branch can get code not intended for the next
+  release, requiring reverts.
+* Bad, because developers need to change modes for a release. (Work on a 
+  "hardening" branch.)
+* Bad, because it doesn't encourage continuous integration.
+* Bad, because it assumes every branch is fully feature complete.
+
+### GitHub Flow
+
+[GitHub Flow documentation](https://docs.github.com/en/get-started/quickstart/github-flow)
+
+* Good, because it is well known.
+* Good, because it is very simple to follow.
+* Good, because it supports CD.
+* Bad, because it only plans for one release at a time (from the main branch).
+* Bad, because it assumes every branch is fully feature complete or uses other
+  solutions (like feature flags).
+
+### Trunk based
+
+[Trunk-based Development](https://trunkbaseddevelopment.com/). See also [Atlassian's Trunk-based Development recommendations](https://www.atlassian.com/continuous-delivery/continuous-integration/trunk-based-development)
+
+* Good, because it is well known.
+* Good, because it is very simple to follow.
+* Good, because it enforces Continuous Integration.
+* Bad, because the trunk branch can get code not intended for the next
+  release, requiring reverts.
+* Bad, because it either requires pre-commit hooks to check the integrity of
+  each commit, or it has the potential to break every engineer's build.
+* Bad, because it only plans for one release at a time (from the trunk branch).
+* Bad, because only the developer gets a chance to verify before pushing. (Even
+  pre-commit hooks are subject to "it works on my machine" issues.)
+
+### Scalable Git Branching Model
+
+[Scalable Git Branching Model](https://scaledgitflow.com/) ([dark mode](https://principlestudios.com/article/a-scalable-git-branching-model)).
+See also [the breakdown of scalable options](https://principle.tools/branching/).
+
+* Good, because it allows for releases gated with manual steps.
+* Good, because it can match GitHub Flow for the Continuous Deployment model.
+* Good, because it allows for intermediate code reviews on complex features in
+  the "Single Latest Version maintained" model.
+* Good, because it allows for automated checks that prevent breaking the build
+  for many engineers.
+* Good, because it can support multiple maintained releases when necessary.
+* Meh, because it encourages Continuous Integration, but doesn't enforce it.
+* Bad, because it's relatively unknown.
+* Bad, because it can be confusing.
+
+### Using rebase merges
+
+Using rebase merges, while not a fully-fleshed-out strategy on its own, can be
+applied to a number of the other branching models; it can be applied to
+trunk-based development quite easily, for instance. However, there are very
+rarely any published models that wholly rely on rebase merging, and those that
+do appear to have many of the same constraints. (citation needed)
+
+* Good, because history appears simple for any engineers.
+* Good, because it causes any merge conflicts to appear on the commit the
+  rebasing engineer created.
+* Bad, because once rebased it becomes very difficult to remove any code added
+  to the branch.
+* Bad, because it prevents recreating releases based on client changes.
+* Bad, because undoing a bad conflict resolution generally requires additional
+  commits on top of the bad commit (or advanced git skills).
+
+## Additional References
+
+* [Scalable git branching tools](https://github.com/PrincipleStudios/scalable-git-branching-tools)
