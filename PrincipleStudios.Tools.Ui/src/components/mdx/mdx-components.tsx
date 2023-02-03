@@ -2,6 +2,7 @@ import { twMerge } from 'tailwind-merge';
 import { recurse } from '../jsx/recurse';
 import { pipeJsx } from '../jsx/pipeJsx';
 import { mergeStyles } from '../jsx/mergeStyles';
+import { mergeComponent } from '../jsx/mergeComponent';
 import { Headings } from '../headings';
 
 const rowTemplate = mergeStyles(
@@ -9,17 +10,8 @@ const rowTemplate = mergeStyles(
 );
 const infoFontTemplate = mergeStyles(<i className="font-info" />);
 
-export const headingsByBaseNumber = (n: number) => ({
-	h1: Headings.byNumber(n + 0),
-	h2: Headings.byNumber(n + 1),
-	h3: Headings.byNumber(n + 2),
-	h4: Headings.byNumber(n + 3),
-	h5: Headings.byNumber(n + 4),
-	h6: Headings.byNumber(n + 5),
-});
-
 export const components: import('mdx/types').MDXComponents = {
-	...headingsByBaseNumber(1),
+	...Headings.byBaseNumber(1),
 	code: ({ children, className, ...props }) => (
 		<code
 			className={twMerge(
@@ -31,11 +23,7 @@ export const components: import('mdx/types').MDXComponents = {
 			{children}
 		</code>
 	),
-	p: ({ children, className, ...props }) => (
-		<p className={twMerge('my-2', className)} {...props}>
-			{children}
-		</p>
-	),
+	p: mergeComponent(<p className="my-2" />),
 	table: ({ children, className, ...props }) => (
 		<div
 			className="overflow-auto print:overflow-visible my-2"
@@ -50,50 +38,17 @@ export const components: import('mdx/types').MDXComponents = {
 			</table>
 		</div>
 	),
-	a: ({ children, className, ...props }) => (
-		<a className={twMerge('underline', className)} {...props}>
-			{children}
-		</a>
-	),
-	thead: ({ children, className, ...props }) => (
-		<thead className={twMerge(className)} {...props}>
-			{children}
-		</thead>
-	),
+	a: mergeComponent(<a className="underline" />),
+	thead: mergeComponent(<thead />),
 	tbody: ({ children, ...props }) => (
 		<tbody {...props}>{pipeJsx(<>{children}</>, recurse(rowTemplate))}</tbody>
 	),
-	td: ({ children, className, ...props }) => (
-		<td className={twMerge('px-2 font-bold align-top', className)} {...props}>
-			{children}
-		</td>
-	),
-	th: ({ children, className, ...props }) => (
-		<th
-			className={twMerge('px-2 font-bold align-bottom', className)}
-			{...props}
-		>
-			{children}
-		</th>
-	),
-	ul: ({ children, className, ...props }) => (
-		<ul className={twMerge('list-disc ml-6', className)} {...props}>
-			{children}
-		</ul>
-	),
-	ol: ({ children, className, ...props }) => (
-		<ul className={twMerge('list-decimal ml-6', className)} {...props}>
-			{children}
-		</ul>
-	),
-	li: ({ children, className, ...props }) => (
-		<li className={twMerge('my-1', className)} {...props}>
-			{children}
-		</li>
-	),
-	hr: ({ className, ...props }) => (
-		<hr className={twMerge('border-0 my-1.5', className)} {...props} />
-	),
+	td: mergeComponent(<td className="px-2 font-bold align-top" />),
+	th: mergeComponent(<th className="px-2 font-bold align-bottom" />),
+	ul: mergeComponent(<ul className="list-disc ml-6" />),
+	ol: mergeComponent(<ol className="list-decimal ml-6" />),
+	li: mergeComponent(<li className="my-1" />),
+	hr: mergeComponent(<li className="border-0 my-1.5" />),
 	blockquote: ({ children, className, ...props }) => (
 		<blockquote
 			className={twMerge('bg-gradient-to-r from-gray-300 p-2 my-4', className)}
@@ -104,11 +59,15 @@ export const components: import('mdx/types').MDXComponents = {
 		</blockquote>
 	),
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	img: ({ src, alt, placeholder, ...props }) =>
-		src ? <img src={src} alt={alt} {...props} /> : <></>,
-	strong: ({ children, ...props }) => (
-		<span className="font-bold" {...props}>
-			{children}
-		</span>
-	),
+	img: mergeComponent(<img />),
+	strong: mergeComponent(<span className="font-bold" />),
 };
+
+export function getComponentsWithMaxHeading(
+	headingElementMax: 1 | 2 | 3 | 4 | 5 | 6
+) {
+	return {
+		...components,
+		...Headings.byBaseNumber(headingElementMax),
+	};
+}

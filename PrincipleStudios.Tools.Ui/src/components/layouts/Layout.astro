@@ -1,15 +1,23 @@
 ---
 export interface Props {
 	title: string;
+	ogImage?: string | undefined;
+	ogDescription?: string | undefined;
 }
 import Header from '../header/Header.astro';
 import Spaced from '../spaced/Spaced.astro';
 
 import { PullRequestToast } from '../pull-request-toast';
 
-const { title } = Astro.props;
+const { title, ogImage, ogDescription } = Astro.props;
+
+const canonicalURL = new URL(
+	Astro.url.pathname.replace(/([^/])$/, '$1/'),
+	Astro.site ?? 'https://principle.tools'
+);
 
 const prId = import.meta.env.PR_ID;
+const gitHash = import.meta.env.GIT_HASH ?? 'HEAD';
 ---
 
 <!DOCTYPE html>
@@ -20,6 +28,22 @@ const prId = import.meta.env.PR_ID;
 		<link rel="shortcut icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
+
+		<meta name={`description`} content={ogDescription} />
+		<meta property={`og:title`} content={title} />
+		<meta property={`og:description`} content={ogDescription} />
+		{
+			ogImage ? (
+				<meta property={`og:image`} content={new URL(ogImage, Astro.site)} />
+			) : null
+		}
+		<meta property={`og:type`} content={`website`} />
+		<meta name={`twitter:card`} content={`summary`} />
+		<meta name={`twitter:creator`} content={`@mdekrey`} />
+		<meta name={`twitter:title`} content={title} />
+		<meta name={`twitter:description`} content={ogDescription} />
+		<meta name="git-version" content={gitHash} />
+		<link rel="canonical" href={canonicalURL} />
 	</head>
 	<body>
 		<div class="h-96 bg-black absolute w-full top-0"></div>

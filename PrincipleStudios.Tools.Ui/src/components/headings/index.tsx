@@ -27,15 +27,25 @@ const header =
 		);
 
 export const Headings = {
-	h1: header('h1', 'text-3xl'),
-	h2: header('h2', 'text-2xl'),
-	h3: header('h3', 'text-xl'),
-	h4: header('h4', 'text-lg'),
-	h5: header('h5', 'text-base'),
-	h6: header('h6', 'text-sm'),
+	h1: header('h1', 'text-4xl'),
+	h2: header('h2', 'text-3xl'),
+	h3: header('h3', 'text-2xl'),
+	h4: header('h4', 'text-xl'),
+	h5: header('h5', 'text-lg'),
+	h6: header('h6', 'text-base'),
 	// h7 to be used because our mdx down-steps all header tags intentionally
-	h7: header('h6', 'text-xs'),
+	h7: header('h6', 'text-sm'),
+	h8: header('h6', 'text-xs'),
 
 	byNumber: (n: number) =>
 		Headings[`h${Math.floor(clamp(1, 7, n)) as 1 | 2 | 3 | 4 | 5 | 6 | 7}`],
+
+	byBaseNumber: (n: number) => ({
+		h1: Headings.byNumber(n + 0),
+		h2: Headings.byNumber(n + 1),
+		h3: Headings.byNumber(n + 2),
+		h4: Headings.byNumber(n + 3),
+		h5: Headings.byNumber(n + 4),
+		h6: Headings.byNumber(n + 5),
+	}),
 };
