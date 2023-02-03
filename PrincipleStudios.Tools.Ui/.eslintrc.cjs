@@ -4,7 +4,7 @@ module.exports = {
 	parserOptions: {
 		project: './tsconfig.json',
 		tsconfigRootDir: __dirname,
-		// extraFileExtensions: ['.astro'],
+		extraFileExtensions: ['.astro'],
 	},
 	settings: {
 		'mdx/code-blocks': true,

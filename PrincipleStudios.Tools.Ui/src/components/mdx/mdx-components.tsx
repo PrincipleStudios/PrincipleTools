@@ -4,6 +4,7 @@ import { pipeJsx } from '../jsx/pipeJsx';
 import { mergeStyles } from '../jsx/mergeStyles';
 import { mergeComponent } from '../jsx/mergeComponent';
 import { Headings } from '../headings';
+import type { ImageMetadata } from '@astrojs/image/dist/vite-plugin-astro-image';
 
 const rowTemplate = mergeStyles(
 	<tr className="to-white border-b-2 border-white font-info" />
@@ -59,7 +60,23 @@ export const components: import('mdx/types').MDXComponents = {
 		</blockquote>
 	),
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	img: mergeComponent(<img />),
+	img: ({ src, ...props }) => {
+		if (typeof src === 'string' || typeof src === 'undefined')
+			return (
+				<span className="relative flex justify-center">
+					<img {...props} src={src} />
+				</span>
+			);
+		else {
+			// Astro imports images as ImageMetadata instead of strings; this affects image components in MDX.
+			const image = src as unknown as ImageMetadata;
+			return (
+				<span className="relative flex justify-center">
+					<img {...props} src={image.src} />
+				</span>
+			);
+		}
+	},
 	strong: mergeComponent(<span className="font-bold" />),
 };
 
