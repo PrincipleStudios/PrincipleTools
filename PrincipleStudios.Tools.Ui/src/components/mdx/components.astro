@@ -1,0 +1,18 @@
+---
+import {
+	components as jsxComponents,
+	getComponentsWithMaxHeading as getJsxComponentsWithMaxHeading,
+} from './jsx-components';
+import MarkdownPicture from './MarkdownPicture.astro';
+
+export const components = { ...jsxComponents, img: MarkdownPicture };
+
+// Astro doesn't like the types if they split lines... TODO: check to see if this is an astro bug and file it
+type Params = Parameters<typeof getJsxComponentsWithMaxHeading>;
+export const getComponentsWithMaxHeading = (...args: Params) => {
+	return {
+		...getJsxComponentsWithMaxHeading(...args),
+		img: MarkdownPicture,
+	};
+};
+---

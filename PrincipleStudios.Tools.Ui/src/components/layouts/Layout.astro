@@ -9,7 +9,15 @@ import Spaced from '../spaced/Spaced.astro';
 
 import { PullRequestToast } from '../pull-request-toast';
 
-const { title, ogImage, ogDescription } = Astro.props;
+const {
+	title: propsTitle,
+	ogImage: propsImage,
+	ogDescription: propsDescription,
+	frontmatter,
+} = Astro.props;
+const title = propsTitle ?? frontmatter?.title;
+const image = propsImage ?? frontmatter?.image;
+const description = propsDescription ?? frontmatter?.description;
 
 const canonicalURL = new URL(
 	Astro.url.pathname.replace(/([^/])$/, '$1/'),
@@ -29,19 +37,19 @@ const gitHash = import.meta.env.GIT_HASH ?? 'HEAD';
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 
-		<meta name={`description`} content={ogDescription} />
+		<meta name={`description`} content={description} />
 		<meta property={`og:title`} content={title} />
-		<meta property={`og:description`} content={ogDescription} />
+		<meta property={`og:description`} content={description} />
 		{
-			ogImage ? (
-				<meta property={`og:image`} content={new URL(ogImage, Astro.site)} />
+			image ? (
+				<meta property={`og:image`} content={new URL(image, Astro.site)} />
 			) : null
 		}
 		<meta property={`og:type`} content={`website`} />
 		<meta name={`twitter:card`} content={`summary`} />
 		<meta name={`twitter:creator`} content={`@mdekrey`} />
 		<meta name={`twitter:title`} content={title} />
-		<meta name={`twitter:description`} content={ogDescription} />
+		<meta name={`twitter:description`} content={description} />
 		<meta name="git-version" content={gitHash} />
 		<link rel="canonical" href={canonicalURL} />
 	</head>

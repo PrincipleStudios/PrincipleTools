@@ -1,5 +1,10 @@
-import Layout from '@/components/layouts/Layout.astro';
-export { components } from '@/components/mdx';
+---
+layout: '@/components/layouts/Layout.astro'
+title: Continuous Deployment
+description: A summary of the Continuous Deployment variant of the Scalable Git Branching Model
+---
+
+export { components } from '@/components/mdx/components.astro';
 
 [&larr; Other Branching Strategies](..)
 
@@ -90,5 +95,3 @@ Once a feature is approved to go to production:
 - Main should only be merged from features with approval from QA and should be deployed automatically to production.
 
 [1]: https://principlestudios.com/article/a-scalable-git-branching-model
-
-export default Layout;
