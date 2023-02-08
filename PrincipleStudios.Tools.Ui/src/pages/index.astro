@@ -5,8 +5,7 @@ import { getComponentsWithMaxHeading } from '@/components/mdx/components.astro';
 
 import Guides from '@/page-components/index/components/guides/index.mdx';
 import OpenSourcePackages from '@/page-components/index/components/open-source-packages/index.astro';
-
-// const blips = await getAllRadarBlips();
+import Adrs from '@/page-components/index/components/adrs/index.mdx';
 ---
 
 <Layout
@@ -19,4 +18,6 @@ import OpenSourcePackages from '@/page-components/index/components/open-source-p
 	<Guides components={getComponentsWithMaxHeading(2)} />
 	<OpenSourcePackages />
 	<!-- <TechnologyRadar blips={blips} /> -->
+
+	<Adrs components={getComponentsWithMaxHeading(2)} />
 </Layout>

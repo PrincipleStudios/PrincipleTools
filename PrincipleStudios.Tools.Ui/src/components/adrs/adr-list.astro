@@ -1,0 +1,17 @@
+---
+import { getAllAdrs } from './utils';
+
+const adrData = await getAllAdrs();
+---
+
+<ul class="list-disc ml-6">
+	{
+		adrData.map((adr) => (
+			<li class="my-1">
+				<a class="underline" href={`/adr/${adr.slug}/`}>
+					ADR: {adr.title}
+				</a>
+			</li>
+		))
+	}
+</ul>
