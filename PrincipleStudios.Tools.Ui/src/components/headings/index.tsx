@@ -1,8 +1,8 @@
 import { twMerge } from 'tailwind-merge';
+import clamp from 'lodash/fp/clamp';
 import { pipeJsx } from '../jsx/pipeJsx';
 import { mergeStyles } from '../jsx/mergeStyles';
-import { createElement } from 'react';
-import clamp from 'lodash/fp/clamp';
+import { mergeComponent } from '../jsx/mergeComponent';
 
 const headerTemplate = mergeStyles(
 	<i
@@ -11,41 +11,45 @@ const headerTemplate = mergeStyles(
 	/>
 );
 
-const header =
-	(elem: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6', fontSizeClass: string) =>
-	({ children, className, ...props }: JSX.IntrinsicElements['h1']) =>
-		pipeJsx(
-			createElement(
-				elem,
-				{
-					className: twMerge(fontSizeClass, className),
-					...props,
-				},
-				children
-			),
-			headerTemplate
-		);
+/** Creates a heading element with the default styles from the above template */
+const header = (template: JSX.Element, name: string) =>
+	mergeComponent<'h1'>(pipeJsx(template, headerTemplate), name);
+
+const headings = [
+	header(<h1 className="text-4xl" />, 'H1'),
+	header(<h2 className="text-3xl" />, 'H2'),
+	header(<h3 className="text-2xl" />, 'H3'),
+	header(<h4 className="text-xl" />, 'H4'),
+	header(<h5 className="text-lg" />, 'H5'),
+	header(<h6 className="text-base" />, 'H6'),
+	// more headings _just in case_ because our mdx down-steps all header tags intentionally
+	header(<h6 className="text-sm" />, 'H7'),
+	header(<h6 className="text-xs" />, 'H8'),
+];
+
+/** Gets a header by number - `1` would give an `h1`, etc. */
+function byNumber(n: number) {
+	// We clamp to the range of the headings, ensuring an integer... no, we can't get undefined.
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+	return headings[clamp(0, headings.length - 1, Math.floor(n) - 1)]!;
+}
+
+/** Utility function for down-stepping headers. That is, allow MDX to use
+ * `h1` but receive an `h2`.
+ */
+function byBaseNumber(n: number) {
+	return {
+		h1: byNumber(n + 0),
+		h2: byNumber(n + 1),
+		h3: byNumber(n + 2),
+		h4: byNumber(n + 3),
+		h5: byNumber(n + 4),
+		h6: byNumber(n + 5),
+	};
+}
 
 export const Headings = {
-	h1: header('h1', 'text-4xl'),
-	h2: header('h2', 'text-3xl'),
-	h3: header('h3', 'text-2xl'),
-	h4: header('h4', 'text-xl'),
-	h5: header('h5', 'text-lg'),
-	h6: header('h6', 'text-base'),
-	// h7 to be used because our mdx down-steps all header tags intentionally
-	h7: header('h6', 'text-sm'),
-	h8: header('h6', 'text-xs'),
-
-	byNumber: (n: number) =>
-		Headings[`h${Math.floor(clamp(1, 7, n)) as 1 | 2 | 3 | 4 | 5 | 6 | 7}`],
-
-	byBaseNumber: (n: number) => ({
-		h1: Headings.byNumber(n + 0),
-		h2: Headings.byNumber(n + 1),
-		h3: Headings.byNumber(n + 2),
-		h4: Headings.byNumber(n + 3),
-		h5: Headings.byNumber(n + 4),
-		h6: Headings.byNumber(n + 5),
-	}),
+	...byBaseNumber(1),
+	byNumber,
+	byBaseNumber,
 };
