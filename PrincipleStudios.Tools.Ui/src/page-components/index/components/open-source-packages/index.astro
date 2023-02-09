@@ -2,13 +2,9 @@
 import groupBy from 'lodash/fp/groupBy';
 import { Fragment } from 'react';
 import { Headings } from '@/components/headings';
-import type { OpenSourcePackageSummary } from '@/open-source/utils.astro';
+import { getAllPackages } from '@/open-source/utils';
 
-export type Props = {
-	packages: OpenSourcePackageSummary[];
-};
-
-const { packages: allPackages } = Astro.props;
+const allPackages = await getAllPackages();
 
 const byLanguage = Object.entries(groupBy((pkg) => pkg.language, allPackages));
 ---

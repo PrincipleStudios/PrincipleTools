@@ -9,6 +9,7 @@ COPY PrincipleStudios.Tools.Ui/package.json PrincipleStudios.Tools.Ui/package-lo
 RUN npm ci
 
 # Rebuild the source code only when needed
+COPY adr/ /adr/
 COPY PrincipleStudios.Tools.Ui/ .
 
 # Disable Astro telemetry

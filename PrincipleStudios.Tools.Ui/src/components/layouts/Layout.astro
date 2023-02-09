@@ -1,15 +1,28 @@
 ---
 export interface Props {
 	title: string;
+	ogImage?: string | undefined;
+	ogDescription?: string | undefined;
 }
 import Header from '../header/Header.astro';
 import Spaced from '../spaced/Spaced.astro';
 
-import { PullRequestToast } from '../pull-request-toast';
+const {
+	title: propsTitle,
+	ogImage: propsImage,
+	ogDescription: propsDescription,
+	frontmatter,
+} = Astro.props;
+const title = propsTitle ?? frontmatter?.title;
+const image = propsImage ?? frontmatter?.image;
+const description = propsDescription ?? frontmatter?.description;
 
-const { title } = Astro.props;
+const canonicalURL = new URL(
+	Astro.url.pathname.replace(/([^/])$/, '$1/'),
+	Astro.site ?? 'https://principle.tools'
+);
 
-const prId = import.meta.env.PR_ID;
+const gitHash = import.meta.env.GIT_HASH ?? 'HEAD';
 ---
 
 <!DOCTYPE html>
@@ -20,6 +33,22 @@ const prId = import.meta.env.PR_ID;
 		<link rel="shortcut icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
+
+		<meta name={`description`} content={description} />
+		<meta property={`og:title`} content={title} />
+		<meta property={`og:description`} content={description} />
+		{
+			image ? (
+				<meta property={`og:image`} content={new URL(image, Astro.site)} />
+			) : null
+		}
+		<meta property={`og:type`} content={`website`} />
+		<meta name={`twitter:card`} content={`summary`} />
+		<meta name={`twitter:creator`} content={`@mdekrey`} />
+		<meta name={`twitter:title`} content={title} />
+		<meta name={`twitter:description`} content={description} />
+		<meta name="git-version" content={gitHash} />
+		<link rel="canonical" href={canonicalURL} />
 	</head>
 	<body>
 		<div class="h-96 bg-black absolute w-full top-0"></div>
@@ -32,7 +61,5 @@ const prId = import.meta.env.PR_ID;
 				<slot />
 			</Spaced>
 		</main>
-
-		{isNaN(prId) || !prId ? null : <PullRequestToast prId={prId} />}
 	</body>
 </html>

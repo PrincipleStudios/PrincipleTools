@@ -14,5 +14,12 @@ import image from '@astrojs/image';
 
 // https://astro.build/config
 export default defineConfig({
-	integrations: [tailwind(), react(), mdx(), image()],
+	integrations: [
+		tailwind(),
+		react(),
+		mdx({
+			remarkPlugins: [[(await import('remark-mdx-images')).default]],
+		}),
+		image(),
+	],
 });

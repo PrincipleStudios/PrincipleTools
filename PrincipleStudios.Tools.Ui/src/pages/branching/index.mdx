@@ -1,5 +1,10 @@
-import Layout from '@/components/layouts/Layout.astro';
-export { components } from '@/components/mdx';
+---
+layout: '@/components/layouts/Layout.astro'
+title: The Scalable Git Branching Model
+description: A summary of the principles and variants of the Scalable Git Branching Model
+---
+
+export { components } from '@/components/mdx/components.astro';
 
 # Branching Strategies
 
@@ -70,5 +75,3 @@ can immediately merge it in, adding a new base to their branch, and start using 
 feature that may not be deployable for some time.
 
 [1]: https://principlestudios.com/article/a-scalable-git-branching-model
-
-export default Layout;

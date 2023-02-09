@@ -2,7 +2,7 @@ import ExclamationCircle from '@heroicons/react/24/outline/ExclamationCircleIcon
 
 export function PullRequestToast({ prId }: { prId: number }) {
 	return (
-		<div className="z-20 fixed top-3 right-3 bg-white">
+		<div className="z-20 bg-white text-black self-start hidden md:block">
 			<p className="m-2">
 				<ExclamationCircle className="text-amber-600 h-6 w-6 inline-block align-middle mb-1 mr-2" />
 				This is a pull request!{' '}

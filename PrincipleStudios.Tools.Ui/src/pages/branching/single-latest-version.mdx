@@ -1,7 +1,10 @@
-import Layout from '@/components/layouts/Layout.astro';
-import releaseCandidateFromFeatures from './releaseCandidateFromFeatures.png';
-import reintegrateIntegration from './reintegrateIntegration.png';
-export { components } from '@/components/mdx';
+---
+layout: '@/components/layouts/Layout.astro'
+title: Single Latest Version
+description: A summary of the Single Latest Version variant of the Scalable Git Branching Model
+---
+
+export { components } from '@/components/mdx/components.astro';
 
 [&larr; Other Branching Strategies](..)
 
@@ -121,10 +124,7 @@ Once a release candidate is approved to go to production:
 - Merge it to `main`
 - Delete its base branches recursively, including infrastructure branches.
 
-<img
-	src={releaseCandidateFromFeatures.src}
-	alt="Git diagram showing a release candidate being merged to main and cleaning up other branches"
-/>
+![Git diagram showing a release candidate being merged to main and cleaning up other branches](./releaseCandidateFromFeatures.png)
 
 ### Re-integrating integration branches
 
@@ -132,10 +132,7 @@ If all but one of the base branches of an integration branch is merged to main, 
 into its other base. This will resolve merge conflicts between the released features and the unreleased features
 without needing to re-do the conflict resolution.
 
-<img
-	src={reintegrateIntegration.src}
-	alt="Git diagram showing an integration branch being used to resolve merge conflicts by merging prior to the service line"
-/>
+![Git diagram showing an integration branch being used to resolve merge conflicts by merging prior to the service line](./reintegrateIntegration.png)
 
 ## Automation and Branch policies
 
@@ -145,5 +142,3 @@ without needing to re-do the conflict resolution.
 - Main should only be merged from release candidates with approval from QA and should be deployed automatically to production.
 
 [1]: https://principlestudios.com/article/a-scalable-git-branching-model
-
-export default Layout;

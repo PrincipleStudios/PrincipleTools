@@ -1,0 +1,27 @@
+---
+import { AdrEntry, getAllAdrs } from '@/components/adrs/utils';
+import Layout from '@/components/layouts/Layout.astro';
+import { components } from '@/components/mdx/components.astro';
+
+export type Props = {
+	adr: AdrEntry;
+};
+
+export async function getStaticPaths() {
+	const entries = await getAllAdrs();
+	return entries.map((adr) => {
+		return {
+			params: { slug: adr.slug },
+			props: { adr },
+		};
+	});
+}
+
+const {
+	adr: { title, Content },
+} = Astro.props;
+---
+
+<Layout title={title}>
+	<Content components={components} />
+</Layout>
