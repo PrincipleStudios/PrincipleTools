@@ -5,6 +5,9 @@ export type Props = {
 import { twMerge } from 'tailwind-merge';
 import Spaced from '../spaced/Spaced.astro';
 import { Logo } from '../logo/Logo';
+import { PullRequestToast } from '../pull-request-toast';
+
+const prId = import.meta.env.PR_ID;
 
 const { className } = Astro.props;
 ---
@@ -13,13 +16,15 @@ const { className } = Astro.props;
 	<Spaced className="flex justify-between">
 		<div class="flex">
 			<a href="/" class="justify-self-end">
-				<Logo className="h-20" title="Principle Tools Home" />
+				<Logo className="h-20" height="5rem" title="Principle Tools Home" />
 			</a>
 
 			<nav class="flex justify-between items-center ml-3">
 				{/* <span className="px-6">Home</span> */}
 			</nav>
 		</div>
+
+		{isNaN(prId) || !prId ? null : <PullRequestToast prId={prId} />}
 	</Spaced>
 </header>
 <div class="h-20"></div>

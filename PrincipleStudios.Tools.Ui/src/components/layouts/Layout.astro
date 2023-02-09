@@ -7,8 +7,6 @@ export interface Props {
 import Header from '../header/Header.astro';
 import Spaced from '../spaced/Spaced.astro';
 
-import { PullRequestToast } from '../pull-request-toast';
-
 const {
 	title: propsTitle,
 	ogImage: propsImage,
@@ -24,7 +22,6 @@ const canonicalURL = new URL(
 	Astro.site ?? 'https://principle.tools'
 );
 
-const prId = import.meta.env.PR_ID;
 const gitHash = import.meta.env.GIT_HASH ?? 'HEAD';
 ---
 
@@ -64,7 +61,5 @@ const gitHash = import.meta.env.GIT_HASH ?? 'HEAD';
 				<slot />
 			</Spaced>
 		</main>
-
-		{isNaN(prId) || !prId ? null : <PullRequestToast prId={prId} />}
 	</body>
 </html>
