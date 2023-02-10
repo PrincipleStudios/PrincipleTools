@@ -1,7 +1,7 @@
 import type { MDXInstance } from 'astro';
 import { join, basename, extname } from 'node:path';
 import { exec } from 'node:child_process';
-import { uniq } from 'lodash/fp';
+import uniq from 'lodash/fp/uniq';
 import { format } from 'date-fns';
 
 function execAsync(command: string) {
@@ -24,7 +24,6 @@ export type AdrEntry = {
 	authors: string[];
 } & MDXInstance<AdrFrontmatter>;
 
-// git log --pretty=format:"%aI %an" -- adr/01-branching-strategies.mdx > temp.txt
 export async function getAllAdrs(): Promise<AdrEntry[]> {
 	const dirUrl = join(process.cwd(), '../adr');
 	const adrs = await Promise.all(

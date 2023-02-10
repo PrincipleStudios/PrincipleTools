@@ -11,7 +11,7 @@ RUN npm ci
 # Rebuild the source code only when needed
 COPY adr/ /adr/
 COPY PrincipleStudios.Tools.Ui/ .
-COPY .git/ .
+COPY .git/ /.git/
 
 # Disable Astro telemetry
 ENV ASTRO_TELEMETRY_DISABLED=1
