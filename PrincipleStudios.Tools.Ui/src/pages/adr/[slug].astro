@@ -1,7 +1,17 @@
 ---
 import { AdrEntry, getAllAdrs } from '@/components/adrs/utils';
 import Layout from '@/components/layouts/Layout.astro';
-import { components } from '@/components/mdx/components.astro';
+import { components as originalComponents } from '@/components/mdx/components.astro';
+import { Headings } from '@/components/headings';
+
+const {
+	adr: { title, Content, lastModifiedDateText, authors },
+} = Astro.props;
+
+const components = {
+	...originalComponents,
+	h1: () => '', // there should only be one top-level h1 in any ADR, and we're going to add it ourselves
+};
 
 export type Props = {
 	adr: AdrEntry;
@@ -16,12 +26,11 @@ export async function getStaticPaths() {
 		};
 	});
 }
-
-const {
-	adr: { title, Content },
-} = Astro.props;
 ---
 
-<Layout title={title}>
+<Layout title={`Architecture Decision Record: ${title}`}>
+	<Headings.h1 id="article">Architecture Decision Record: {title}</Headings.h1>
+	<p class="my-2">Last Modified: {lastModifiedDateText}</p>
+	<p class="my-2">Authors: {authors.join(', ')}</p>
 	<Content components={components} />
 </Layout>

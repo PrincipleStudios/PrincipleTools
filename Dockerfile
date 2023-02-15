@@ -2,7 +2,7 @@ FROM principlestudios.azurecr.io/dotnet-static-files-server AS base
 
 FROM node:16-alpine AS build-node
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
-RUN apk add --no-cache libc6-compat brotli
+RUN apk add --no-cache libc6-compat brotli git
 WORKDIR /app
 
 COPY PrincipleStudios.Tools.Ui/package.json PrincipleStudios.Tools.Ui/package-lock.json ./
@@ -11,6 +11,7 @@ RUN npm ci
 # Rebuild the source code only when needed
 COPY adr/ /adr/
 COPY PrincipleStudios.Tools.Ui/ .
+COPY .git/ /.git/
 
 # Disable Astro telemetry
 ENV ASTRO_TELEMETRY_DISABLED=1
