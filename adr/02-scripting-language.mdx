@@ -1,0 +1,57 @@
+# Scripting Language
+
+## Context and Problem Statement
+
+For many situations, creating a quick executable is preferrable to full applications. Deployment scripts, build tooling, and even git aliases all can benefit from a bit of scripting.
+
+However, which language to use becomes a bit of a challenge. There's many shell scripting languages, and even node and python support the `#!` syntax for using them as a scripting language.
+
+## Considered Options
+
+* (option 1)
+* (option 2)
+* (option 3)
+* _numbers of options can vary_
+
+## Decision Outcome
+
+Powershell Core was decided to be used for Principle Studios developer scripts for the reasons below. (Do not write Powershell scripts to only be run in environments that are fully controlled, such as containerized applications, unless Powershell itself is the point.)
+
+_Note: deliverables to clients may vary depending on additional factors._
+
+## Pros and Cons of the Options
+
+### Bash/Shell scripts
+
+* Good, because it's commonly used.
+* Good, because it rarely needs installation beyond what engineers usually install.
+* Bad, because it doesn't have consistent cross-platform environments. (MSYS2, WSL, old bash version for MacOS)
+* Bad, because character-based parsing (via pipes, etc.) encourages write-once scripts.
+
+### Node scripts
+
+* Good, because most of our engineers already install node.
+* Good, because the language symantics are familiar for our engineering team.
+* Good, because it allows for easy organization of data as objects, arrays, etc.
+* Bad, because different versions of node are required by our clients, and as a result the scripts can behave differently per environment.
+* Bad, because it mostly is "batteries not included" with reliance on installing other packages via npm.
+* Bad, because it does not have clean interop with other command-line tools.
+
+### Python scripts
+
+* Good, because it allows for easy organization of data as objects, arrays, etc.
+* Bad, because there are multiple versions of Python, and as a result the scripts can behave differently per environment.
+* Bad, because it mostly is "batteries not included" with reliance on installing other packages via pip.
+* Bad, because most of our engineers do not currently install python nor are they familiar with it.
+
+### Powershell Core scripts
+
+* Good, because while there are different versions of Powershell Core, they behave largely the same between different versions.
+* Good, because it allows for easy organization of data as objects, arrays, etc.
+* Good, because it has good interop with other command line tools, but also comes with a host of object-based "commandlets".
+* Good, because the engineers frequently writing the shell scripts are familiar with C#, which Powershell Core uses under the hood.
+* Bad, because it isn't installed by default and many engineers are not familiar with it.
+
+## Additional References
+
+* [Installing Powershell Core](https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell)
