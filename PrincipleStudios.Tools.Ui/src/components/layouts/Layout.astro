@@ -26,7 +26,7 @@ const gitHash = import.meta.env.GIT_HASH ?? 'HEAD';
 ---
 
 <!DOCTYPE html>
-<html lang="en" class="scroll-pt-20">
+<html lang="en" class="scroll-pt-24">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="initial-scale=1.0, width=device-width" />
@@ -54,10 +54,10 @@ const gitHash = import.meta.env.GIT_HASH ?? 'HEAD';
 		<div class="h-96 bg-black absolute w-full top-0"></div>
 		<Header className="bg-black text-white" />
 
-		<div class="h-10"></div>
-
 		<main class="relative">
-			<Spaced className="p-8 bg-white shadow-xl">
+			<Spaced
+				className="p-8 bg-white text-black dark:bg-black dark:text-white shadow-xl"
+			>
 				<slot />
 			</Spaced>
 		</main>

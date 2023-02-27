@@ -51,7 +51,10 @@ export const components: import('mdx/types').MDXComponents = {
 	hr: mergeComponent(<li className="border-0 my-1.5" />),
 	blockquote: ({ children, className, ...props }) => (
 		<blockquote
-			className={twMerge('bg-gradient-to-r from-gray-300 p-2 my-4', className)}
+			className={twMerge(
+				'bg-gradient-to-r from-gray-300 dark:from-gray-800 to-transparent p-2 my-4',
+				className
+			)}
 			style={{ pageBreakInside: 'avoid' }}
 			{...props}
 		>
