@@ -5,10 +5,10 @@ ingress:
     cert-manager.io/cluster-issuer: principle-tools-issuer
   enabled: true
 
-resources: 
+resources:
   limits:
     cpu: 100m
-    memory: 30Mi
+    memory: 100Mi
   requests:
     cpu: 100m
-    memory: 30Mi
+    memory: 50Mi

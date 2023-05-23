@@ -52,7 +52,7 @@ granular visibility into work, allowing for easier reviews, simpler testing, and
 - **Example Regex**: `^(feature|bugfix)/([A-Z]+-[0-9]+)(_[A-Z]+-[0-9]+)+(-[^/]+)?$`
 - **Example Names**: `feature/ABC-1234_ABC-1237`, `feature/ABC-1235_ABC-1236-support-webp`, `bugfix/XYZ-78_XYZ-79-better-email-regex`
   - _Note: Because git uses file paths, slashes cannot delimit each ticket name without conflicting with comment-free
-    feature branches._
+    feature branches.[^1]_
 - **Based on**: Parent feature, or parent integration branch.
 
 ### Release Candidates
@@ -84,7 +84,7 @@ issues.
 - **Example Regex**: `^integrate/([A-Z]+-[0-9]+)(_[A-Z]+-[0-9]+)+$`; by convention, tickets get alphabetically ordered
 - **Example Names**: `integrate/ABC-1234_ABC-1235`, `integrate/ABC-1234_ABC-1235_XYZ-78`
   - _Note: Because git uses file paths, slashes cannot delimit each ticket name without conflicting with comment-free
-    feature branches._
+    feature branches.[^1]_
 - **Based on**: Two or more feature branches
 
 ### Less-common branch types
@@ -140,5 +140,7 @@ without needing to re-do the conflict resolution.
 - Release candidates and hotfixes should be deployed to testing environments. Release candidates should only be built
   from feature branches, with no revert commits or conflict resolution.
 - Main should only be merged from release candidates with approval from QA and should be deployed automatically to production.
+
+[^1]: You can't have a branch named both "feature/ABC-1234" and "feature/ABC-1234/ABC-1237". That's because, given the branch "feature/ABC-1234" exists, at `.git/refs/heads/feature/ABC-1234` there is a file that contains the commit hash for the branch. Since file systems don't allow a file to also be a folder, you wouldn't be able to have `.git/refs/heads/feature/ABC-1234/ABC-1237`, meaning you can't have "feature/ABC-1234/ABC-1237".
 
 [1]: https://principlestudios.com/article/a-scalable-git-branching-model
