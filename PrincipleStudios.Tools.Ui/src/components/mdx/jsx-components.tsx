@@ -12,7 +12,7 @@ const infoFontTemplate = mergeStyles(<i className="font-info" />);
 
 export const components: import('mdx/types').MDXComponents = {
 	...Headings.byBaseNumber(1),
-	p: mergeComponent(<p className="my-2" />),
+	p: mergeComponent(<p className="my-4" />),
 	table: ({ children, className, ...props }) => (
 		<div
 			className="overflow-auto print:overflow-visible my-2"
