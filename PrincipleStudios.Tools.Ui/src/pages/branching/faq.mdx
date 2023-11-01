@@ -72,6 +72,42 @@ feature branch that used an infrastructure branch. Instead, merge `main` into
 the infrastructure branch, then merge the infrastructure branch into the feature
 branch.
 
+## Why do I see conflicts that have been resolved before when merging base branches?
+
+This can happen for a few reasons, but the most common is that the integration
+branches haven't been re-used.
+
+If all but one of the base branches of an integration branch is merged to your
+service line (like `main`), the integration branch may be merged into its other
+base. This will resolve merge conflicts between the released features and the
+unreleased features without needing to re-do the conflict resolution.
+
+In the diagram below, if we have `feature/PS-123` and `feature/BA-17` that
+conflict, we would make an integration branch called `integrate/BA-17_PS-123`.
+In this case, `feature/BA-17` gets deferred to a later release, and
+`feature/PS-123` is deployed and merged back to the service line `main`. Before
+merging `main` into `feature/BA-17`, we should merge `integrate/BA-17_PS-123`
+into `feature/BA-17` (after all, we're about to merge `feature/PS-123` in via
+`main` anyway, and that's the only thing we have in the integration branch
+thanks to the [Isolation until Finalized principle][principle-isolation].) Once
+`integrate/BA-17_PS-123` is merged, `main` will merge into `feature/BA-17` much
+more cleanly. Also, make sure you remove `integrate/BA-17_PS-123` when you are
+done!
+
+![Git diagram showing an integration branch being used to resolve merge conflicts by merging prior to the service line](./reintegrateIntegration.png)
+
+Other reasons for resolving the same conflict multiple times include the following:
+- Someone on the team did a "revert" commit, then re-did the work (either via
+  another "revert", "cherry-pick" or by copying the work by hand.)
+- Someone on the team used a rebase merge strategy, which prevents git from
+  using history to see that the conflicts are the same.
+- The conflict is between a shared branch (like an infrastructure branch) and a
+  feature, but an integration branch was not created for re-use.
+- An auto-formatter is configured differently for various engineers, which can
+  cause nasty conflicts. [Matt DeKrey wrote an article a while back that
+  explains how to auto-refactor a project in git with a large number of
+  branches.][dekrey-autorefactoring]
+
 ## How do I add a dependency to my branch?
 
 If your branch is checked out, run the following:
@@ -86,7 +122,7 @@ ensure you're using the latest, because [frequency reduces difficulty][Frequency
 
 ## How do I resolve merge conflicts with a release candidate?
 
-Because of the [Isolation until Finalized][principle-isolation] principle, we do
+Because of the [Isolation until Finalized principle][principle-isolation], we do
 not merge release candidates into a feature branch. Instead, we need to find the
 conflicting branch and create an integration branch.
 
@@ -160,3 +196,4 @@ workflow by updating documentation.
 [git-tools]: https://github.com/PrincipleStudios/scalable-git-branching-tools
 [FrequencyReducesDifficulty]: https://martinfowler.com/bliki/FrequencyReducesDifficulty.html
 [principle-isolation]: https://principlestudios.com/article/a-scalable-git-branching-model/#isolation-until-finalized
+[dekrey-autorefactoring]: https://dekrey.net/articles/automated-git-refactorings/
