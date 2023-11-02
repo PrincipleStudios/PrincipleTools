@@ -6,7 +6,14 @@ description: A summary of the principles and variants of the Scalable Git Branch
 
 export { components } from '@/components/mdx/components.astro';
 
-# Branching Strategies
+# Scalable Git Branching Model
+
+The [scalable git branching model][1] is a decade-tested model that scales from
+small to large teams with various process requirements.
+
+If you're already familiar, please see our [frequently asked questions](./faq).
+
+## Branching Strategies
 
 Principle engineering primarily recommends the thought process behind [scalable git branching model][1], though that
 post is written more as an overview than a guide on how to implement it for any specific project. The primary scenarios
@@ -29,36 +36,36 @@ we see (from simplest to most complex) are:
    these scenarios, the full branching model is used, tracking each maintained version with a separate service line
    and keeping them all up-to-date.
 
-# Principles
+## Principles
 
 Here are a few principles to keep in mind when working with these branching models. We're aware that every project has
 its own needs, so keep these in mind when tweaking the process to make it your own.
 
-## Isolation until Finalized
+### Isolation until Finalized
 
 Code that is a work-in-progress usually needs to be tested before merging. Even with rapid prototyping, we prefer to
 use feature branches to assist with code reviews and ensure feature flags are in place before merging.
 
-## Multiple Bases
+### Multiple Bases
 
 Each branch may have more than one branch from which it is created, referred to as its base branches. This happens less
 frequently in the simpler scenarios.
 
-## Immediate Downstream Propagation
+### Immediate Downstream Propagation
 
 When any of a branch's base branches is updated, the base branch should be re-merged into the branch. Keeping branches
 up to date with their base branches is important for continuous integration in lieu of a development branch where all
 features are continuously integrated.
 
-# Additional things to keep in mind
+## Additional things to keep in mind
 
 Also known as our "secondary principles", these extra guidelines will keep everything clean and working smoothly.
 
-## No Upstream Propagation
+### No Upstream Propagation
 
 Do not merge branches into their base branch until the branch is to be deleted.
 
-## No Branch is Sacred
+### No Branch is Sacred
 
 Other than the "main" branch in the simpler workflows, any branch that gets bad data in it can simply be removed and
 recreated. Once merged into a service line, branches should be removed.
@@ -67,11 +74,15 @@ recreated. Once merged into a service line, branches should be removed.
 > a branch to track what is on a particular environment, at least not by merging into the branch. Resetting the branch
 > to track a release candidate is acceptable, but it may as well be a tag at that point.
 
-## Move Infrastructure Out
+### Move Infrastructure Out
 
 Engineering work, such as refactoring or building shared components, should be done as their own branches, whether as
 features or infrastructure branches. This way when another engineer needs the shared component in their branch, they
 can immediately merge it in, adding a new base to their branch, and start using it - without added risk of bringing a
 feature that may not be deployable for some time.
+
+## Still have questions?
+
+Please see our [frequently asked questions](./faq).
 
 [1]: https://principlestudios.com/article/a-scalable-git-branching-model

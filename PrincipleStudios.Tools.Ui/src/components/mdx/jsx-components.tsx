@@ -12,18 +12,7 @@ const infoFontTemplate = mergeStyles(<i className="font-info" />);
 
 export const components: import('mdx/types').MDXComponents = {
 	...Headings.byBaseNumber(1),
-	code: ({ children, className, ...props }) => (
-		<code
-			className={twMerge(
-				'bg-gray-200 inline-block border border-gray-400 rounded-sm',
-				className
-			)}
-			{...props}
-		>
-			{children}
-		</code>
-	),
-	p: mergeComponent(<p className="my-2" />),
+	p: mergeComponent(<p className="my-4" />),
 	table: ({ children, className, ...props }) => (
 		<div
 			className="overflow-auto print:overflow-visible my-2"
@@ -59,6 +48,9 @@ export const components: import('mdx/types').MDXComponents = {
 		</blockquote>
 	),
 	strong: mergeComponent(<span className="font-bold" />),
+	pre: mergeComponent(
+		<pre className="bg-gray-800 p-4 overflow-hidden rounded-lg" />
+	),
 };
 
 export function getComponentsWithMaxHeading(

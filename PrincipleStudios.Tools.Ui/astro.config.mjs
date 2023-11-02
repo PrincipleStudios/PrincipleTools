@@ -22,4 +22,9 @@ export default defineConfig({
 		}),
 		image(),
 	],
+	markdown: {
+		shikiConfig: {
+			theme: 'dark-plus',
+		},
+	},
 });
