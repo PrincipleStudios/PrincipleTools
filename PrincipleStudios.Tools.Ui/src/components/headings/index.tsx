@@ -6,7 +6,7 @@ import { mergeComponent } from '../jsx/mergeComponent';
 
 const headerTemplate = mergeStyles(
 	<i
-		className={twMerge('font-header font-bold', 'mt-4 first:mt-0')}
+		className={twMerge('font-header font-bold', 'mt-8 first:mt-0')}
 		style={{ pageBreakAfter: 'avoid' }}
 	/>
 );
