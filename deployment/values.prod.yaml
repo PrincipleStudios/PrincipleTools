@@ -1,5 +1,8 @@
 ingress:
   hosts:
+  - host: tools.principlestudios.com
+    paths:
+    - path: /
   - host: principle.tools
     paths:
     - path: /
