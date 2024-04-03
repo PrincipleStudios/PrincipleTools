@@ -18,7 +18,7 @@ ENV ASTRO_TELEMETRY_DISABLED=1
 
 ARG GIT_HASH=HEAD
 ENV GIT_HASH=${GIT_HASH}
-ARG DOMAIN=https://principle.tools
+ARG DOMAIN=https://tools.principlestudios.com
 ARG PR_ID
 ENV PR_ID=$PR_ID
 RUN npm run build -- --site $DOMAIN
